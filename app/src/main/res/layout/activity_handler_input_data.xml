@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="326dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="21.74dp"
+    android:paddingHorizontal="24dp"
+    tools:context=".handler.HandlerInputData"
+    android:id="@+id/card_input_data">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_overview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/primary_200"
+        android:elevation="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_card_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="177dp" />
+
+            <ImageView
+                android:id="@+id/logo_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo_customer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/view_customer_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@id/logo_customer"
+                app:layout_constraintStart_toEndOf="@id/logo_customer"
+                app:layout_constraintTop_toTopOf="@id/logo_customer">
+
+                <TextView
+                    android:id="@+id/tv_customer_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PT Shell Indonesia"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_customer_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="Bekasi Regency, West Java 17211"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_customer_stok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="Stok: Solar"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/card_overview_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16.37dp"
+                android:backgroundTint="@color/primary_200"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_customer_info" />
+
+            <TextView
+                android:id="@+id/current_stock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10.62dp"
+                android:lineHeight="18sp"
+                android:text="Current Stock"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/card_overview_divider"
+                app:layout_constraintTop_toBottomOf="@id/card_overview_divider" />
+
+            <TextView
+                android:id="@+id/tv_current_stock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="850kL"
+                android:textColor="@color/neutral_500"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/card_overview_divider"
+                app:layout_constraintTop_toBottomOf="@id/current_stock" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:src="@drawable/ic_current_stock"
+                app:layout_constraintBottom_toBottomOf="@id/tv_current_stock"
+                app:layout_constraintStart_toEndOf="@id/tv_current_stock"
+                app:layout_constraintTop_toTopOf="@id/tv_current_stock" />
+
+            <TextView
+                android:id="@+id/sold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10.62dp"
+                android:lineHeight="18sp"
+                android:text="Sold"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/guideline_card_center"
+                app:layout_constraintTop_toBottomOf="@id/card_overview_divider" />
+
+            <TextView
+                android:id="@+id/tv_sold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="50kL"
+                android:textColor="@color/neutral_500"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/sold"
+                app:layout_constraintTop_toBottomOf="@id/sold" />
+
+            <ImageView
+                android:id="@+id/ic_data_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_current_stock"
+                app:layout_constraintStart_toStartOf="@id/card_overview_divider"
+                android:src="@drawable/ic_overview_status"/>
+
+            <TextView
+                android:id="@+id/tv_input_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                app:layout_constraintTop_toTopOf="@id/ic_data_input"
+                app:layout_constraintBottom_toBottomOf="@id/ic_data_input"
+                app:layout_constraintStart_toEndOf="@id/ic_data_input"
+                android:textSize="12sp"
+                android:lineHeight="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_700"
+                android:text="DAILY PICKUP"/>
+            <ImageView
+                android:id="@+id/ic_calendar"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                app:layout_constraintTop_toTopOf="@id/ic_data_input"
+                app:layout_constraintBottom_toBottomOf="@id/ic_data_input"
+                app:layout_constraintStart_toStartOf="@id/guideline_card_center"
+                android:src="@drawable/ic_calendar"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_700"
+                app:layout_constraintTop_toTopOf="@id/ic_data_input"
+                app:layout_constraintBottom_toBottomOf="@id/ic_data_input"
+                app:layout_constraintStart_toEndOf="@id/ic_calendar"
+                android:text="19/09/2022"/>
+
+            <EditText
+                android:id="@+id/et_input_data"
+                android:layout_width="146dp"
+                android:layout_height="37dp"
+                android:layout_marginTop="9dp"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:background="@color/primary_200"
+                app:layout_constraintTop_toBottomOf="@id/tv_input_title"
+                app:layout_constraintStart_toStartOf="@id/tv_input_title"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                app:layout_constraintTop_toTopOf="@id/et_input_data"
+                app:layout_constraintBottom_toBottomOf="@id/et_input_data"
+                app:layout_constraintStart_toEndOf="@id/et_input_data"
+                android:background="@drawable/ic_send"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.cardview.widget.CardView>

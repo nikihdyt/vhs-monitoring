@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:srcCompat="@drawable/ic_notification_false"
+        android:background="@drawable/ic_notification_false"
         app:layout_constraintBottom_toBottomOf="@id/img_user_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/img_user_profile"
@@ -254,7 +254,7 @@
                     app:layout_constraintTop_toBottomOf="@id/sold" />
 
                 <ImageView
-                    android:id="@+id/ic_overview_status"
+                    android:id="@+id/ic_data_input"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -264,13 +264,13 @@
                     android:src="@drawable/ic_overview_status"/>
 
                 <TextView
-                    android:id="@+id/tv_overview_status"
+                    android:id="@+id/tv_input_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="11dp"
-                    app:layout_constraintTop_toTopOf="@id/ic_overview_status"
+                    app:layout_constraintTop_toTopOf="@id/ic_data_input"
                     app:layout_constraintBottom_toTopOf="@id/tv_overview_status_time"
-                    app:layout_constraintStart_toEndOf="@id/ic_overview_status"
+                    app:layout_constraintStart_toEndOf="@id/ic_data_input"
                     android:textSize="13.63sp"
                     android:textStyle="bold"
                     android:textColor="@color/primary_700"
@@ -280,9 +280,9 @@
                     android:id="@+id/tv_overview_status_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_overview_status"
-                    app:layout_constraintBottom_toBottomOf="@id/ic_overview_status"
-                    app:layout_constraintStart_toStartOf="@id/tv_overview_status"
+                    app:layout_constraintTop_toBottomOf="@id/tv_input_title"
+                    app:layout_constraintBottom_toBottomOf="@id/ic_data_input"
+                    app:layout_constraintStart_toStartOf="@id/tv_input_title"
                     android:textSize="13.63sp"
                     android:textColor="@color/tertiary_200"
                     android:text="Requested 1 day ago"/>
@@ -291,18 +291,18 @@
                     android:id="@+id/btn_input"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/primary_200"
+                    android:backgroundTint="@color/primary_700"
                     android:layout_gravity="bottom|end"
                     android:layout_margin="16dp"
                     android:textSize="12sp"
                     android:lineHeight="18sp"
-                    app:iconTint="@color/primary_700"
-                    android:textColor="@color/primary_700"
+                    app:iconTint="@color/primary_200"
+                    android:textColor="@color/primary_200"
                     android:textStyle="bold"
                     app:icon="@drawable/ic_input"
                     android:text="INPUT"
                     android:clickable="true"
-                    app:layout_constraintTop_toBottomOf="@id/ic_overview_status"
+                    app:layout_constraintTop_toBottomOf="@id/ic_data_input"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:focusable="true" />
 
@@ -313,7 +313,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/input_expanded_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"Z
+                android:layout_height="wrap_content"
                 android:paddingHorizontal="24dp"
                 android:paddingTop="24dp"
                 android:paddingBottom="53dp"
@@ -324,23 +324,153 @@
 
                 <ImageView
                     android:id="@+id/ic_ARRIVED_STOCK"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_progress_done"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:src="@drawable/ic_progress_false"/>
+                    app:layout_constraintTop_toTopOf="parent" />
                 <TextView
                     android:id="@+id/tv_ARRIVED_STOCK"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:lineHeight="0sp"
-                    android:textColor="@color/neutral_300"
+                    android:textColor="@color/primary_700"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_ARRIVED_STOCK"
                     app:layout_constraintStart_toEndOf="@id/ic_ARRIVED_STOCK"
                     android:text="ARRIVED STOCK"/>
+                <TextView
+                    android:id="@+id/tv_ARRIVED_STOCK_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:lineHeight="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/neutral_500"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ARRIVED_STOCK"
+                    app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
+                    android:text="900kL"/>
+                <TextView
+                    android:id="@+id/tv_ARRIVED_STOCK_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13.63sp"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/secondary_500"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ARRIVED_STOCK_amount"
+                    app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
+                    android:text="Approved 2 days ago"/>
+
+                <ImageButton
+                    android:id="@+id/btn_add_arrived_stock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_add_data"
+                    app:layout_constraintTop_toTopOf="@id/tv_ARRIVED_STOCK"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_ARRIVED_STOCK_time"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <Button
+                    android:layout_width="2dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/neutral_100"
+                    app:layout_constraintTop_toBottomOf="@id/ic_ARRIVED_STOCK"
+                    app:layout_constraintBottom_toTopOf="@id/ic_DAILY_PICKUP"
+                    app:layout_constraintStart_toStartOf="@id/ic_ARRIVED_STOCK"
+                    app:layout_constraintEnd_toEndOf="@id/ic_ARRIVED_STOCK" />
+                <ImageView
+                    android:id="@+id/ic_DAILY_PICKUP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/tv_DAILY_PICKUP"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_DAILY_PICKUP"
+                    app:layout_constraintStart_toStartOf="@id/ic_ARRIVED_STOCK"
+                    android:src="@drawable/ic_progress_doing"/>
+
+                <TextView
+                    android:id="@+id/tv_DAILY_PICKUP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:lineHeight="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_700"
+                    android:layout_marginTop="22dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ARRIVED_STOCK_time"
+                    app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
+                    android:text="DAILY PICKUP"/>
+                <TextView
+                    android:id="@+id/tv_DAILY_PICKUP_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:lineHeight="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/neutral_500"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_DAILY_PICKUP"
+                    app:layout_constraintStart_toStartOf="@id/tv_DAILY_PICKUP"
+                    android:text="50kL"/>
+                <TextView
+                    android:id="@+id/tv_DAILY_PICKUP_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13.63sp"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/secondary_500"
+                    app:layout_constraintTop_toBottomOf="@id/tv_DAILY_PICKUP_amount"
+                    app:layout_constraintStart_toStartOf="@id/tv_DAILY_PICKUP"
+                    android:text="18/09/2022 at 2:09pm"/>
+                <ImageButton
+                    android:id="@+id/btn_add_daily_pickup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_add_data"
+                    app:layout_constraintTop_toTopOf="@id/tv_DAILY_PICKUP"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_DAILY_PICKUP_time"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <Button
+                    android:layout_width="2dp"
+                    android:layout_height="0dp"
+                    android:backgroundTint="@color/neutral_100"
+                    app:layout_constraintTop_toBottomOf="@id/ic_DAILY_PICKUP"
+                    app:layout_constraintBottom_toTopOf="@id/ic_TANK_REST"
+                    app:layout_constraintStart_toStartOf="@id/ic_ARRIVED_STOCK"
+                    app:layout_constraintEnd_toEndOf="@id/ic_ARRIVED_STOCK" />
+                <ImageView
+                    android:id="@+id/ic_TANK_REST"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/tv_TANK_REST"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_TANK_REST"
+                    app:layout_constraintStart_toStartOf="@id/ic_ARRIVED_STOCK"
+                    android:src="@drawable/ic_progress_false"/>
+
+                <TextView
+                    android:id="@+id/tv_TANK_REST"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:lineHeight="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/neutral_300"
+                    android:layout_marginTop="22dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_DAILY_PICKUP_time"
+                    app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
+                    android:text="TANK REST"/>
+                <ImageButton
+                    android:id="@+id/btn_add_tank_rest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_add_data"
+                    app:layout_constraintTop_toTopOf="@id/tv_TANK_REST"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_TANK_REST"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:visibility="gone"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

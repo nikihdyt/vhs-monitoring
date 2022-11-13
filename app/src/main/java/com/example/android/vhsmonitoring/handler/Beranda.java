@@ -20,26 +20,39 @@ import com.example.android.vhsmonitoring.databinding.ActivityBerandaBinding;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 public class Beranda extends AppCompatActivity {
-    private ImageButton btnNotification;
+    private ImageButton btnNotification, btnArrivedStock, btnDailyPickup, btnTankRest;
     private ExtendedFloatingActionButton btnInput;
     public Boolean isBtnInputVisible;
     private ConstraintLayout inputCard;
     private CardView overviewCard;
-
-    private ActivityBerandaBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beranda);
 
-        binding = ActivityBerandaBinding.inflate(getLayoutInflater());
         inputCard = findViewById(R.id.input_expanded_view);
         overviewCard = findViewById(R.id.card_overview_and_input);
         btnInput = (ExtendedFloatingActionButton) findViewById(R.id.btn_input);
         btnNotification = (ImageButton) findViewById(R.id.btnNotification);
+        btnArrivedStock = findViewById(R.id.btn_add_arrived_stock);
+        btnDailyPickup = findViewById(R.id.btn_add_daily_pickup);
 
-        // btnInput.setVisibility(View.GONE);
+        inputData();
+        addArrivedStock();
+        addDailyPickup();
+
+        btnNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("tag2", "button is clicked");
+            }
+        });
+
+    }
+
+    public void inputData() {
+        inputCard.setVisibility(View.GONE);
         isBtnInputVisible = false;
 
         btnInput.bringToFront();
@@ -56,23 +69,30 @@ public class Beranda extends AppCompatActivity {
                 }
             }
         });
-
-        btnNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("tag2", "button is clicked");
-            }
-        });
-
     }
 
-//    public void showExpandingInputCard(View view) {
-//        if (inputCard.getVisibility()==view.GONE) {
-//            TransitionManager.beginDelayedTransition(overviewCard, new AutoTransition());
-//            inputCard.setVisibility(view.VISIBLE);
-//        } else {
-//            TransitionManager.beginDelayedTransition(overviewCard, new AutoTransition());
-//            inputCard.setVisibility(view.GONE);
-//        }
-//    }
+    public void addArrivedStock() {
+        btnArrivedStock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Beranda.this, HandlerInputData.class);
+                intent.putExtra("inputType", "ARRIVED STOCK");
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    public void addDailyPickup() {
+        btnDailyPickup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Beranda.this, HandlerInputData.class);
+                intent.putExtra("inputType", "DAILY PICKUP");
+                startActivity(intent);
+            }
+        });
+    }
+
+
 }
