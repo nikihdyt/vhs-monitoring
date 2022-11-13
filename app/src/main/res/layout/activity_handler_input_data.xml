@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="177dp" />
+                app:layout_constraintGuide_percent="0.5" />
 
             <ImageView
                 android:id="@+id/logo_customer"
@@ -192,6 +192,7 @@
                 app:layout_constraintStart_toStartOf="@id/tv_input_title"/>
 
             <ImageButton
+                android:id="@+id/btn_send_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp"
@@ -199,6 +200,59 @@
                 app:layout_constraintBottom_toBottomOf="@id/et_input_data"
                 app:layout_constraintStart_toEndOf="@id/et_input_data"
                 android:background="@drawable/ic_send"/>
+
+            <TextView
+                android:id="@+id/tvDataInputted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_700"
+                app:layout_constraintTop_toBottomOf="@id/tv_input_title"
+                app:layout_constraintStart_toStartOf="@id/tv_input_title"
+                android:text="50 kL"
+                android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/ic_success_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintTop_toTopOf="@id/tvDataInputted"
+                app:layout_constraintBottom_toBottomOf="@id/tvDataInputted"
+                app:layout_constraintStart_toEndOf="@id/tvDataInputted"
+                android:src="@drawable/ic_success_message"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/tv_success_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/secondary_500"
+                app:layout_constraintTop_toBottomOf="@id/tvDataInputted"
+                app:layout_constraintStart_toStartOf="@id/tvDataInputted"
+                android:text="APPROVAL HAS BEEN SENT"
+                android:visibility="gone"/>
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/btn_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_200"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="17dp"
+                android:textSize="12sp"
+                android:lineHeight="18sp"
+                app:iconTint="@color/primary_700"
+                android:textColor="@color/primary_700"
+                android:textStyle="bold"
+                app:icon="@drawable/ic_close"
+                android:text="CLOSE"
+                android:clickable="true"
+                app:layout_constraintTop_toBottomOf="@id/tv_success_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:focusable="true"
+                android:visibility="gone"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

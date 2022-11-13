@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Dev/PAD pertamina/vhs-monitoring/app/src/main/res/drawable-nodpi/ic_input.xml" value="0.205" />
-        <entry key="..\:/Dev/PAD pertamina/vhs-monitoring/app/src/main/res/layout/activity_beranda.xml" value="0.1" />
-        <entry key="..\:/Dev/PAD pertamina/vhs-monitoring/app/src/main/res/layout/activity_handler_input_data.xml" value="0.264" />
+        <entry key="..\:/Dev/PAD pertamina/vhs-monitoring/app/src/main/res/layout/activity_beranda.xml" value="0.4" />
+        <entry key="..\:/Dev/PAD pertamina/vhs-monitoring/app/src/main/res/layout/activity_handler_input_data.xml" value="0.2" />
+        <entry key="..\:/Dev/PAD pertamina/vhs-monitoring/app/src/main/res/layout/activity_notification.xml" value="0.2" />
+        <entry key="..\:/Dev/PAD pertamina/vhs-monitoring/app/src/main/res/layout/activity_stock_opname.xml" value="0.2" />
+        <entry key="..\:/Dev/PAD pertamina/vhs-monitoring/app/src/main/res/layout/item_notification.xml" value="0.1" />
         <entry key="..\:/Dev/VHSMonitoring/app/src/main/res/drawable-nodpi/user_profile.xml" value="0.1555" />
         <entry key="..\:/Dev/VHSMonitoring/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1555" />
         <entry key="..\:/Dev/VHSMonitoring/app/src/main/res/drawable/background_overview_data_rounded.xml" value="0.1" />

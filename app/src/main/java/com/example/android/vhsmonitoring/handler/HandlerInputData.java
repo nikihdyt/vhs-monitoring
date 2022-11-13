@@ -9,18 +9,29 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
 import android.view.WindowManager;
+import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
 
 import com.example.android.vhsmonitoring.R;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import org.w3c.dom.Text;
 
 public class HandlerInputData extends AppCompatActivity {
-    TextView tvInputTitle;
+    TextView tvInputTitle, tvDataInputted, tvSuccessMessage;
+    ImageView icSuccessMessage;
+    EditText etInputData;
+    ImageButton btnSendData;
+    ExtendedFloatingActionButton btnClose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +39,44 @@ public class HandlerInputData extends AppCompatActivity {
         setContentView(R.layout.activity_handler_input_data);
 
         tvInputTitle = findViewById(R.id.tv_input_title);
+        etInputData = findViewById(R.id.et_input_data);
+        btnSendData = findViewById(R.id.btn_send_data);
+        tvDataInputted = findViewById(R.id.tvDataInputted);
+        tvSuccessMessage = findViewById(R.id.tv_success_message);
+        icSuccessMessage = findViewById(R.id.ic_success_message);
+        btnClose = findViewById(R.id.btn_close);
 
+        // get intent message from beranda
         Intent intent = getIntent();
         String inputType = intent.getStringExtra("inputType");
 
         setPopUpWindow(inputType);
+        sendData();
+        closePopUp();
 
+    }
+
+    public void sendData() {
+        btnSendData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etInputData.setVisibility(View.GONE);
+                btnSendData.setVisibility(View.GONE);
+                tvDataInputted.setVisibility(View.VISIBLE);
+                icSuccessMessage.setVisibility(View.VISIBLE);
+                tvSuccessMessage.setVisibility(View.VISIBLE);
+                btnClose.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    public void closePopUp() {
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     public void setPopUpWindow(String inputType) {
@@ -65,4 +108,6 @@ public class HandlerInputData extends AppCompatActivity {
         ViewGroupOverlay overlay = parent.getOverlay();
         overlay.add(dim);
     }
+
+
 }

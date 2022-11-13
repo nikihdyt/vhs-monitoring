@@ -311,6 +311,7 @@
         </com.google.android.material.card.MaterialCardView>
     <!--    overview card end       -->
             <androidx.constraintlayout.widget.ConstraintLayout
+
                 android:id="@+id/input_expanded_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -466,10 +467,21 @@
                     android:id="@+id/btn_add_tank_rest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_add_data"
+                    android:background="@drawable/ic_input_tank_rest_stock_opname"
                     app:layout_constraintTop_toTopOf="@id/tv_TANK_REST"
                     app:layout_constraintBottom_toBottomOf="@id/tv_TANK_REST"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tv_tank_rest_time_remaining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13.63sp"
+                    android:lineHeight="20sp"
+                    android:textColor="@color/tertiary_200"
+                    app:layout_constraintTop_toBottomOf="@id/tv_TANK_REST"
+                    app:layout_constraintStart_toStartOf="@id/tv_TANK_REST"
+                    android:text="Time remaining 02:50:47"
                     android:visibility="gone"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
