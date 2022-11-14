@@ -5,4 +5,6 @@
     <string name="automatisasi_monitoring_dan_approval_vendor_held_stock_vhs">Automatisasi monitoring dan approval \nVendor Held Stock (VHS)</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="overview"><u>OVERVIEW</u></string>
 </resources>

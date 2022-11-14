@@ -2,28 +2,70 @@ package com.example.android.vhsmonitoring.handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
 import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
 
 import com.example.android.vhsmonitoring.R;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 public class StockOpname extends AppCompatActivity {
+    ConstraintLayout stockOpnameInputCard, stockOpnameApprovalCard;
+    ImageButton btnTankRest;
+    ExtendedFloatingActionButton btnClose;
+    LinearLayout tvCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_opname);
 
+        stockOpnameInputCard = findViewById(R.id.stock_opname_input_tank_rest);
+        stockOpnameApprovalCard = findViewById(R.id.stock_opname_send_approval);
+        btnTankRest = findViewById(R.id.btn_send_data);
+        btnClose = findViewById(R.id.btn_close);
+        tvCalendar = findViewById(R.id.calendar);
+
+        stockOpnameInputCard.setVisibility(View.VISIBLE);
+        stockOpnameApprovalCard.setVisibility(View.GONE);
+        tvCalendar.setVisibility(View.GONE);
         setPopUpWindow();
+
+        sendData();
+        closePopUp();
+    }
+
+
+    public void sendData() {
+        btnTankRest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stockOpnameInputCard.setVisibility(View.GONE);
+                stockOpnameApprovalCard.setVisibility(View.VISIBLE);
+                tvCalendar.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    public void closePopUp() {
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     public void setPopUpWindow() {
