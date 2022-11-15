@@ -1,9 +1,9 @@
-package com.example.android.vhsmonitoring.handler;
+package com.example.android.vhsmonitoring;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -13,59 +13,48 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
 import android.view.WindowManager;
-import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
 
 import com.example.android.vhsmonitoring.R;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-import org.w3c.dom.Text;
-
-public class HandlerInputData extends AppCompatActivity {
-    TextView tvInputTitle, tvDataInputted, tvSuccessMessage;
-    ImageView icSuccessMessage;
-    EditText etInputData;
-    ImageButton btnSendData;
+public class StockOpname extends AppCompatActivity {
+    ConstraintLayout stockOpnameInputCard, stockOpnameApprovalCard;
+    ImageButton btnTankRest;
     ExtendedFloatingActionButton btnClose;
+    LinearLayout tvCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_handler_input_data);
+        setContentView(R.layout.activity_stock_opname);
 
-        tvInputTitle = findViewById(R.id.tv_input_title);
-        etInputData = findViewById(R.id.et_input_data);
-        btnSendData = findViewById(R.id.btn_send_data);
-        tvDataInputted = findViewById(R.id.tvDataInputted);
-        tvSuccessMessage = findViewById(R.id.tv_success_message);
-        icSuccessMessage = findViewById(R.id.ic_success_message);
+        stockOpnameInputCard = findViewById(R.id.stock_opname_input_tank_rest);
+        stockOpnameApprovalCard = findViewById(R.id.stock_opname_send_approval);
+        btnTankRest = findViewById(R.id.btn_send_data);
         btnClose = findViewById(R.id.btn_close);
+        tvCalendar = findViewById(R.id.calendar);
 
-        // get intent message from beranda
-        Intent intent = getIntent();
-        String inputType = intent.getStringExtra("inputType");
+        stockOpnameInputCard.setVisibility(View.VISIBLE);
+        stockOpnameApprovalCard.setVisibility(View.GONE);
+        tvCalendar.setVisibility(View.GONE);
+        setPopUpWindow();
 
-        setPopUpWindow(inputType);
         sendData();
         closePopUp();
-
     }
 
+
     public void sendData() {
-        btnSendData.setOnClickListener(new View.OnClickListener() {
+        btnTankRest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                etInputData.setVisibility(View.GONE);
-                btnSendData.setVisibility(View.GONE);
-                tvDataInputted.setVisibility(View.VISIBLE);
-                icSuccessMessage.setVisibility(View.VISIBLE);
-                tvSuccessMessage.setVisibility(View.VISIBLE);
-                btnClose.setVisibility(View.VISIBLE);
+                stockOpnameInputCard.setVisibility(View.GONE);
+                stockOpnameApprovalCard.setVisibility(View.VISIBLE);
+                tvCalendar.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -79,12 +68,10 @@ public class HandlerInputData extends AppCompatActivity {
         });
     }
 
-    public void setPopUpWindow(String inputType) {
-        CardView cardInputData = findViewById(R.id.card_input_data);
-        TextView addDataType = findViewById(R.id.tv_input_title);
-        addDataType.setText(inputType);
+    public void setPopUpWindow() {
+        CardView cardStockOpname = findViewById(R.id.card_stock_opname);
 
-        ViewGroup.LayoutParams layoutParams = cardInputData.getLayoutParams();
+        ViewGroup.LayoutParams layoutParams = cardStockOpname.getLayoutParams();
         int width = layoutParams.width;
 
         getWindow().setLayout(width, ListPopupWindow.WRAP_CONTENT);
@@ -99,7 +86,6 @@ public class HandlerInputData extends AppCompatActivity {
     }
 
     private static void applyDim(ViewGroup parent) {
-        // cek jenis input (arrived stock/daily pickup)
 
         Drawable dim = new ColorDrawable(Color.BLACK);
         dim.setBounds(0, 0, parent.getWidth(), parent.getHeight());
@@ -108,6 +94,4 @@ public class HandlerInputData extends AppCompatActivity {
         ViewGroupOverlay overlay = parent.getOverlay();
         overlay.add(dim);
     }
-
-
 }

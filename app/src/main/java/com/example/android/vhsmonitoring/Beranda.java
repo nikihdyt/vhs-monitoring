@@ -1,4 +1,4 @@
-package com.example.android.vhsmonitoring.handler;
+package com.example.android.vhsmonitoring;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -9,20 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.android.vhsmonitoring.NotificationActivity;
-import com.example.android.vhsmonitoring.R;
-import com.example.android.vhsmonitoring.databinding.ActivityBerandaBinding;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-
-import java.security.PublicKey;
 
 public class Beranda extends AppCompatActivity {
     private ImageButton btnNotification, btnArrivedStock, btnDailyPickup, btnTankRest;
@@ -83,7 +75,7 @@ public class Beranda extends AppCompatActivity {
         btnArrivedStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Beranda.this, HandlerInputData.class);
+                Intent intent = new Intent(Beranda.this, InputData.class);
                 intent.putExtra("inputType", "ARRIVED STOCK");
                 startActivity(intent);
             }
@@ -95,7 +87,7 @@ public class Beranda extends AppCompatActivity {
         btnDailyPickup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Beranda.this, HandlerInputData.class);
+                Intent intent = new Intent(Beranda.this, InputData.class);
                 intent.putExtra("inputType", "DAILY PICKUP");
                 startActivity(intent);
             }

@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.android.vhsmonitoring.handler.Beranda;
-
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override

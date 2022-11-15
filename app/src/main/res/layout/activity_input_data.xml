@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="21.74dp"
     android:paddingHorizontal="24dp"
-    tools:context=".handler.HandlerInputData"
+    tools:context=".InputData"
     android:id="@+id/card_input_data">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_overview"

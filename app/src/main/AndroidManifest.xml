@@ -14,18 +14,24 @@
         android:theme="@style/Theme.VHSMonitoring"
         tools:targetApi="31">
         <activity
-            android:name=".handler.StockOpname"
+            android:name=".OverviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BerandaPusat"
+            android:exported="false" />
+        <activity
+            android:name=".StockOpname"
             android:exported="false"
             android:theme="@style/Theme.VHSMonitoring.PopUp" />
         <activity
-            android:name=".handler.HandlerInputData"
+            android:name=".InputData"
             android:exported="false"
             android:theme="@style/Theme.VHSMonitoring.PopUp" />
         <activity
             android:name=".NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".handler.Beranda"
+            android:name=".Beranda"
             android:exported="true" />
         <activity
             android:name=".SplashScreenActivity"
