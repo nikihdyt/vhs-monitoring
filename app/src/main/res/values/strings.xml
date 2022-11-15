@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">VHS Monitoring by Pertamina</string>
+    <string name="masuk">Masuk</string>
+    <string name="lupa_kata_sandi">Lupa Kata Sandi?</string>
+    <string name="ingat_saya">Ingat saya</string>
+    <string name="sandi">Kata Sandi</string>
+    <string name="nomor_id">Nomor ID</string>
+    <string name="headingPreviewLoginImage">Kemudahan Monitoring</string>
+    <string name="descriptionsPreviewLoginImage">Monitoring pembelian stok lebih mudah dalam genggaman anda.</string>
+    <string name="splashScreen_text1"><![CDATA[Monitoring & Approval]]></string>
+    <string name="splashScreen_text2">Automatisasi monitoring dan approval Vendor Held Stock (VHS)</string>
+    <string name="default_approval_status_text">Approval Status</string>
+    <string name="default_calendar_text">DD/MM/YYYY</string>
+    <string name="current_stock">Current Stock</string>
+    <string name="default_current_stocks">XXX kL</string>
+    <string name="sold">Sold</string>
+    <string name="default_industry_name">Industry Name</string>
+    <string name="default_industry_addresses">City Name, Province, Postal Code</string>
+    <string name="default_stock_type">Stok: Solar</string>
+    <string name="approval_status">Approval Status</string>
+    <string name="descriptions">Descriptions</string>
+    <string name="input_button">INPUT</string>
+    <string name="history">History</string>
+    <string name="daily_pickup">Daily Pickup</string>
+    <string name="arrived_stock">Arrived Stock</string>
+    <string name="stock_opname">Stock Opname</string>
+    <string name="default_date_text">Date</string>
+    <string name="default_text_in_litre">XX kL</string>
+    <string name="approval_status_details">Approval Status</string>
+    <string name="default_amount">XXX kL</string>
+    <string name="default_id">data_id</string>
+</resources>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:background="@drawable/background_overview_data_rounded_details_approval">
+
+    <RelativeLayout
+        android:id="@+id/approvalDataDetails"
+        style="@style/approvalDetailsStatus">
+
+        <ImageView
+            android:id="@+id/addInputApproval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icons_add_input_2"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+
+        <RelativeLayout
+            android:id="@+id/approvalStatusDetails_icons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/statusApproval_icons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icons_onprogress_approval"/>
+
+            <View
+                android:id="@+id/horizontalLine_1"
+                android:layout_width="2dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@id/statusApproval_icons"
+                android:background="@color/white"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/approvalDataDetails_texts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@id/approvalStatusDetails_icons">
+
+            <TextView
+                android:id="@+id/stockStatusDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/approval_status_details"
+                android:textSize="12sp"
+                android:textColor="@color/darkBlue"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/stockDetailsAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_amount"
+                android:layout_below="@id/stockStatusDetails"
+                android:textSize="18sp"
+                android:textColor="@color/calmBlack"/>
+
+            <TextView
+                android:id="@+id/stockDetailsDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/stockDetailsAmount"
+                android:text="@string/default_date_text"
+                android:textSize="14sp"
+                android:textColor="@color/darkGreen"/>
+
+            <TextView
+                android:id="@+id/approvalDataStatus_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/stockDetailsDate"
+                android:text="@string/default_id"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/lineEnder"
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/approvalStatusDetails_icons"
+            android:background="@drawable/background_filter_button_rounded"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

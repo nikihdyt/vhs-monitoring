@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/container">
+
+    <ImageView
+        android:id="@+id/top_decor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/splash_screen_image_top_new"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:scaleType="fitStart"/>
+
+    <ImageView
+        android:id="@+id/bottom_decor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/splash_screen_image_bottom_new"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitEnd"
+        android:layout_alignParentRight="true"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:id="@+id/icons_pertamina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/logo_pertamina"
+            android:layout_alignLeft="@id/icons_app" />
+
+        <ImageView
+            android:id="@+id/icons_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/icons_pertamina"
+            app:srcCompat="@drawable/splash_screen_logo"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/splashScreenHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/splashScreen_text1"
+            android:textColor="@color/calmBlack"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_below="@id/icons_app"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/splashScreenDescriptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/splashScreen_text2"
+            android:textSize="16sp"
+            android:textColor="@color/calmGrey"
+            android:layout_below="@id/splashScreenHeader"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

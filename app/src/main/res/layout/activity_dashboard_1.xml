@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/userdata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/userProfilePicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo_profile_1"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icons_edit_profile_picture_1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_alignBottom="@id/userProfilePicture"
+                android:layout_alignRight="@id/userProfilePicture"/>
+
+            <RelativeLayout
+                android:id="@+id/userProfileData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/userProfilePicture"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/handlerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Handler Name"
+                    android:textSize="18sp"
+                    android:textColor="@color/calmBlack"
+                    android:autoSizeTextType="uniform"/>
+
+                <TextView
+                    android:id="@+id/handlerCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@id/handlerName"
+                    android:text="HANDLER-CODE"
+                    android:textSize="12sp"
+                    android:textColor="@color/calmGrey"
+                    android:autoSizeTextType="uniform"/>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/notifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icons_notifications"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/providedIconsData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <ImageView
+                android:id="@+id/calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icons_calendar"/>
+
+            <TextView
+                android:id="@+id/calendarText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/calendar"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="@string/default_calendar_text"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/darkBlue"
+                android:autoSizeTextType="uniform"/>
+
+            <ImageView
+                android:id="@+id/approvalStatusIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/approvalStatusText"
+                android:src="@drawable/icons_approval_status"/>
+
+            <TextView
+                android:id="@+id/approvalStatusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="@string/default_approval_status_text"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/warningRed"
+                android:autoSizeTextType="uniform"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/industryData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:padding="20dp"
+            android:background="@drawable/background_overview_data_rounded">
+
+            <ImageView
+                android:id="@+id/industryProfilePicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo_profile_company_1"/>
+
+            <RelativeLayout
+                android:id="@+id/industryProfileData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/industryProfilePicture">
+
+                <TextView
+                    android:id="@+id/industryName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/default_industry_name"
+                    android:textSize="18sp"
+                    android:textColor="@color/calmBlack"
+                    android:textStyle="bold"
+                    android:autoSizeTextType="uniform"/>
+
+                <TextView
+                    android:id="@+id/industryAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/industryName"
+                    android:text="@string/default_industry_addresses"
+                    android:textSize="12sp"
+                    android:textColor="@color/calmGrey"
+                    android:autoSizeTextType="uniform"/>
+
+                <TextView
+                    android:id="@+id/industrySolarType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/industryAddress"
+                    android:text="@string/default_stock_type"
+                    android:textSize="12sp"
+                    android:textColor="@color/calmGrey"
+                    android:textStyle="bold"
+                    android:autoSizeTextType="uniform"/>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/lineSeperator1"
+                android:layout_width="wrap_content"
+                android:layout_height="3dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@id/industryProfilePicture"
+                android:background="@color/lightBlue"/>
+
+            <RelativeLayout
+                android:id="@+id/stockData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lineSeperator1">
+
+                <TextView
+                    android:id="@+id/currentStockText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/current_stock"
+                    android:textColor="@color/calmGrey"
+                    android:textSize="12sp"
+                    android:autoSizeTextType="uniform"/>
+
+                <TextView
+                    app:drawableEndCompat="@drawable/icons_current_stocks"
+                    android:id="@+id/currentStock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/currentStockText"
+                    android:drawablePadding="10dp"
+                    android:text="@string/default_current_stocks"
+                    android:textColor="@color/calmBlack"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:autoSizeTextType="uniform"/>
+
+                <TextView
+                    android:id="@+id/soldText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/currentStockText"
+                    android:layout_marginStart="40dp"
+                    android:text="@string/sold"
+                    android:textColor="@color/calmGrey"
+                    android:textSize="12sp"
+                    android:autoSizeTextType="uniform"/>
+
+                <TextView
+                    android:id="@+id/sold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/soldText"
+                    android:layout_toEndOf="@id/currentStockText"
+                    android:layout_marginStart="40dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/default_current_stocks"
+                    android:textColor="@color/calmBlack"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:autoSizeTextType="uniform"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/approvalData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_below="@id/stockData">
+
+                <ImageView
+                    android:id="@+id/approvalIcons1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icons_approval_stage"/>
+
+                <TextView
+                    android:id="@+id/approvalStatusText1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/approvalIcons1"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/approval_status"
+                    android:textColor="@color/darkBlue"
+                    android:textStyle="bold"
+                    android:autoSizeTextType="uniform"/>
+
+                <TextView
+                    android:id="@+id/approvalStatusText1_descriptions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/approvalIcons1"
+                    android:layout_below="@id/approvalStatusText1"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/descriptions"
+                    android:textColor="@color/warningRed"
+                    android:autoSizeTextType="uniform"/>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/buttonInputData"
+                app:backgroundTint="@color/lightBlue"
+                android:elevation="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/approvalData"
+                android:layout_alignParentEnd="true"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:background="@drawable/background_button_rounded"
+                android:drawableLeft="@drawable/icons_add_input_1"
+                android:text="@string/input_button"
+                android:textColor="@color/darkBlue"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:autoSizeTextType="uniform"/>
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ApprovalDetailStatus_Recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightBlue"
+            android:paddingTop="10dp"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:id="@+id/filterSections_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/historyStockOpname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/history"
+                android:textSize="18sp"
+                android:textColor="@color/darkBlue"
+                android:textStyle="bold"
+                android:autoSizeTextType="uniform"/>
+
+            <HorizontalScrollView
+                android:id="@+id/historyFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:scrollbars="none"
+                android:layout_below="@id/historyStockOpname">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/filterIcons"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/icons_filter"/>
+
+                    <Button
+                        android:id="@+id/filterData_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:elevation="50dp"
+                        android:background="@drawable/background_filter_button_rounded"
+                        app:backgroundTint="@null"
+                        android:textSize="12sp"
+                        android:text="@string/daily_pickup"
+                        android:autoSizeTextType="uniform"/>
+
+                    <Button
+                        android:id="@+id/filterData_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:elevation="50dp"
+                        android:background="@drawable/background_filter_unselected_button_rounded"
+                        app:backgroundTint="@null"
+                        android:text="@string/arrived_stock"
+                        android:textSize="12sp"
+                        android:textColor="@color/darkBlue"
+                        android:autoSizeTextType="uniform"/>
+
+                    <Button
+                        android:id="@+id/filterData_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:elevation="50dp"
+                        android:background="@drawable/background_filter_unselected_button_rounded"
+                        app:backgroundTint="@null"
+                        android:text="@string/stock_opname"
+                        android:textSize="12sp"
+                        android:textColor="@color/darkBlue"
+                        android:autoSizeTextType="uniform"/>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>
