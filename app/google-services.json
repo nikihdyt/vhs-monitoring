@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "384006126872",
+    "project_id": "pryk-pad-k9-vhs-monitoring",
+    "storage_bucket": "pryk-pad-k9-vhs-monitoring.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384006126872:android:0d0b5e6a6c01f5242f326d",
+        "android_client_info": {
+          "package_name": "com.example.android.vhsmonitoring"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384006126872-m7p9vc847fgjs7li7dnqidqf9p6egvck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeperRGbsm1i2b2f3ALUU0ha845IhGAaE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384006126872-m7p9vc847fgjs7li7dnqidqf9p6egvck.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384006126872:android:5bf3e13d36fd8b222f326d",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384006126872-m7p9vc847fgjs7li7dnqidqf9p6egvck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeperRGbsm1i2b2f3ALUU0ha845IhGAaE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384006126872-m7p9vc847fgjs7li7dnqidqf9p6egvck.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

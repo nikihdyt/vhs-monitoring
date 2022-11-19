@@ -1,551 +1,558 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainLayout"
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="25dp"
-    tools:context=".Beranda">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="180dp" />
-
-    <ImageView
-        android:id="@+id/img_user_profile"
-        android:layout_width="61dp"
-        android:layout_height="61dp"
-        android:src="@drawable/user_profile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ic_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_edit"
-        app:layout_constraintBottom_toBottomOf="@id/img_user_profile"
-        app:layout_constraintEnd_toEndOf="@id/img_user_profile" />
-
-    <LinearLayout
-        android:id="@+id/linear1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/img_user_profile"
-        app:layout_constraintStart_toEndOf="@id/img_user_profile"
-        app:layout_constraintTop_toTopOf="@id/img_user_profile">
-
-        <TextView
-            android:id="@+id/tv_user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:lineHeight="48sp"
-            android:text="Zayn Malik"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_user_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:lineHeight="18sp"
-            android:text="287-HANDLER-1A"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/btnNotification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:background="@drawable/ic_notification_false"
-        app:layout_constraintBottom_toBottomOf="@id/img_user_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/img_user_profile"
-        android:focusable="true" />
-
-    <ImageView
-        android:id="@+id/ic_calendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="36dp"
-        android:src="@drawable/ic_calendar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_user_profile" />
-
-    <TextView
-        android:id="@+id/tv_calendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="7dp"
-        app:layout_constraintTop_toTopOf="@id/ic_calendar"
-        app:layout_constraintBottom_toBottomOf="@id/ic_calendar"
-        app:layout_constraintStart_toEndOf="@id/ic_calendar"
-        android:text="19/09/2022"/>
-
-    <ImageView
-        android:id="@+id/ic_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/ic_calendar"
-        app:layout_constraintBottom_toBottomOf="@id/ic_calendar"
-        app:layout_constraintStart_toStartOf="@id/guideline_center"
-        android:src="@drawable/ic_status"/>
-
-    <TextView
-        android:id="@+id/tv_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/ic_status"
-        android:layout_marginLeft="7dp"
-        app:layout_constraintTop_toTopOf="@id/ic_status"
-        app:layout_constraintBottom_toBottomOf="@id/ic_status"
-        android:text="Approval Needed"/>
-
-    <!-- overview and input card start -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_overview_and_input"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mainLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ic_calendar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_height="match_parent"
+        android:padding="25dp"
+        tools:context=".Beranda">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="180dp" />
+
+        <ImageView
+            android:id="@+id/img_user_profile"
+            android:layout_width="61dp"
+            android:layout_height="61dp"
+            android:src="@drawable/user_profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ic_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            app:layout_constraintBottom_toBottomOf="@id/img_user_profile"
+            app:layout_constraintEnd_toEndOf="@id/img_user_profile" />
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-<!--    overview card start     -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_overview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            app:strokeWidth="2dp"
-            app:strokeColor="@color/primary_200"
-            android:elevation="20dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp">
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_card_center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="177dp" />
-
-                <ImageView
-                    android:id="@+id/logo_customer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/logo_customer"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/view_customer_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="@id/logo_customer"
-                    app:layout_constraintStart_toEndOf="@id/logo_customer"
-                    app:layout_constraintTop_toTopOf="@id/logo_customer">
-
-                    <TextView
-                        android:id="@+id/tv_customer_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="PT Shell Indonesia"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_customer_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:text="Bekasi Regency, West Java 17211"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/tv_customer_stok"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:text="Stok: Solar"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/card_overview_divider"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="16.37dp"
-                    android:backgroundTint="@color/primary_200"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_customer_info" />
-
-                <TextView
-                    android:id="@+id/current_stock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10.62dp"
-                    android:lineHeight="18sp"
-                    android:text="Current Stock"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@id/card_overview_divider"
-                    app:layout_constraintTop_toBottomOf="@id/card_overview_divider" />
-
-                <TextView
-                    android:id="@+id/tv_current_stock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="850kL"
-                    android:textColor="@color/neutral_500"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@id/card_overview_divider"
-                    app:layout_constraintTop_toBottomOf="@id/current_stock" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:src="@drawable/ic_current_stock"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_current_stock"
-                    app:layout_constraintStart_toEndOf="@id/tv_current_stock"
-                    app:layout_constraintTop_toTopOf="@id/tv_current_stock" />
-
-                <TextView
-                    android:id="@+id/sold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10.62dp"
-                    android:lineHeight="18sp"
-                    android:text="Sold"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@id/guideline_card_center"
-                    app:layout_constraintTop_toBottomOf="@id/card_overview_divider" />
-
-                <TextView
-                    android:id="@+id/tv_sold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="50kL"
-                    android:textColor="@color/neutral_500"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@id/sold"
-                    app:layout_constraintTop_toBottomOf="@id/sold" />
-
-                <ImageView
-                    android:id="@+id/ic_data_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="30dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_current_stock"
-                    app:layout_constraintStart_toStartOf="@id/card_overview_divider"
-                    android:src="@drawable/ic_overview_status"/>
-
-                <TextView
-                    android:id="@+id/tv_input_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="11dp"
-                    app:layout_constraintTop_toTopOf="@id/ic_data_input"
-                    app:layout_constraintBottom_toTopOf="@id/tv_overview_status_time"
-                    app:layout_constraintStart_toEndOf="@id/ic_data_input"
-                    android:textSize="13.63sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary_700"
-                    android:text="Approval Needed (Costumer)"/>
-
-                <TextView
-                    android:id="@+id/tv_overview_status_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_input_title"
-                    app:layout_constraintBottom_toBottomOf="@id/ic_data_input"
-                    app:layout_constraintStart_toStartOf="@id/tv_input_title"
-                    android:textSize="13.63sp"
-                    android:textColor="@color/tertiary_200"
-                    android:text="Requested 1 day ago"/>
-
-                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                    android:id="@+id/btn_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/primary_700"
-                    android:layout_gravity="bottom|end"
-                    android:layout_margin="16dp"
-                    android:textSize="12sp"
-                    android:lineHeight="18sp"
-                    app:iconTint="@color/primary_200"
-                    android:textColor="@color/primary_200"
-                    android:textStyle="bold"
-                    app:icon="@drawable/ic_input"
-                    android:text="INPUT"
-                    android:clickable="true"
-                    app:layout_constraintTop_toBottomOf="@id/ic_data_input"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:focusable="true" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-    <!--    overview card end       -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-
-                android:id="@+id/input_expanded_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="24dp"
-                android:paddingTop="24dp"
-                android:paddingBottom="53dp"
-                android:background="@color/primary_200"
-                app:layout_constraintTop_toBottomOf="@id/btn_input"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <ImageView
-                    android:id="@+id/ic_ARRIVED_STOCK"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_progress_done"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <TextView
-                    android:id="@+id/tv_ARRIVED_STOCK"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:lineHeight="0sp"
-                    android:textColor="@color/primary_700"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_ARRIVED_STOCK"
-                    app:layout_constraintStart_toEndOf="@id/ic_ARRIVED_STOCK"
-                    android:text="ARRIVED STOCK"/>
-                <TextView
-                    android:id="@+id/tv_ARRIVED_STOCK_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:lineHeight="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/neutral_500"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_ARRIVED_STOCK"
-                    app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
-                    android:text="900kL"/>
-                <TextView
-                    android:id="@+id/tv_ARRIVED_STOCK_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13.63sp"
-                    android:layout_marginTop="4dp"
-                    android:textColor="@color/secondary_500"
-                    app:layout_constraintTop_toBottomOf="@id/tv_ARRIVED_STOCK_amount"
-                    app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
-                    android:text="Approved 2 days ago"/>
-
-                <ImageButton
-                    android:id="@+id/btn_add_arrived_stock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_add_data"
-                    app:layout_constraintTop_toTopOf="@id/tv_ARRIVED_STOCK"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_ARRIVED_STOCK_time"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-                <Button
-                    android:layout_width="2dp"
-                    android:layout_height="0dp"
-                    android:backgroundTint="@color/neutral_100"
-                    app:layout_constraintTop_toBottomOf="@id/ic_ARRIVED_STOCK"
-                    app:layout_constraintBottom_toTopOf="@id/ic_DAILY_PICKUP"
-                    app:layout_constraintStart_toStartOf="@id/ic_ARRIVED_STOCK"
-                    app:layout_constraintEnd_toEndOf="@id/ic_ARRIVED_STOCK" />
-                <ImageView
-                    android:id="@+id/ic_DAILY_PICKUP"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/tv_DAILY_PICKUP"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_DAILY_PICKUP"
-                    app:layout_constraintStart_toStartOf="@id/ic_ARRIVED_STOCK"
-                    android:src="@drawable/ic_progress_doing"/>
-
-                <TextView
-                    android:id="@+id/tv_DAILY_PICKUP"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:lineHeight="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary_700"
-                    android:layout_marginTop="22dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_ARRIVED_STOCK_time"
-                    app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
-                    android:text="DAILY PICKUP"/>
-                <TextView
-                    android:id="@+id/tv_DAILY_PICKUP_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:lineHeight="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/neutral_500"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_DAILY_PICKUP"
-                    app:layout_constraintStart_toStartOf="@id/tv_DAILY_PICKUP"
-                    android:text="50kL"/>
-                <TextView
-                    android:id="@+id/tv_DAILY_PICKUP_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13.63sp"
-                    android:layout_marginTop="4dp"
-                    android:textColor="@color/secondary_500"
-                    app:layout_constraintTop_toBottomOf="@id/tv_DAILY_PICKUP_amount"
-                    app:layout_constraintStart_toStartOf="@id/tv_DAILY_PICKUP"
-                    android:text="18/09/2022 at 2:09pm"/>
-                <ImageButton
-                    android:id="@+id/btn_add_daily_pickup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_add_data"
-                    app:layout_constraintTop_toTopOf="@id/tv_DAILY_PICKUP"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_DAILY_PICKUP_time"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-                <Button
-                    android:layout_width="2dp"
-                    android:layout_height="0dp"
-                    android:backgroundTint="@color/neutral_100"
-                    app:layout_constraintTop_toBottomOf="@id/ic_DAILY_PICKUP"
-                    app:layout_constraintBottom_toTopOf="@id/ic_TANK_REST"
-                    app:layout_constraintStart_toStartOf="@id/ic_ARRIVED_STOCK"
-                    app:layout_constraintEnd_toEndOf="@id/ic_ARRIVED_STOCK" />
-                <ImageView
-                    android:id="@+id/ic_TANK_REST"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/tv_TANK_REST"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_TANK_REST"
-                    app:layout_constraintStart_toStartOf="@id/ic_ARRIVED_STOCK"
-                    android:src="@drawable/ic_progress_false"/>
-
-                <TextView
-                    android:id="@+id/tv_TANK_REST"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:lineHeight="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/neutral_300"
-                    android:layout_marginTop="22dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_DAILY_PICKUP_time"
-                    app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
-                    android:text="TANK REST"/>
-                <ImageButton
-                    android:id="@+id/btn_add_tank_rest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_input_tank_rest_stock_opname"
-                    app:layout_constraintTop_toTopOf="@id/tv_TANK_REST"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_TANK_REST"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:visibility="gone"/>
-                <TextView
-                    android:id="@+id/tv_tank_rest_time_remaining"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13.63sp"
-                    android:lineHeight="20sp"
-                    android:textColor="@color/tertiary_200"
-                    app:layout_constraintTop_toBottomOf="@id/tv_TANK_REST"
-                    app:layout_constraintStart_toStartOf="@id/tv_TANK_REST"
-                    android:text="Time remaining 02:50:47"
-                    android:visibility="gone"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-    <!--card overview and input end-->
-
-    <TextView
-        android:id="@+id/tv_history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/card_overview_and_input"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="History"/>
-
-    <ImageView
-        android:id="@+id/ic_filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_history"
-        app:layout_constraintStart_toStartOf="@id/tv_history"
-        android:src="@drawable/ic_filter" />
-
-    <LinearLayout
-        android:id="@+id/group_histories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/ic_filter"
-        android:layout_marginLeft="7dp"
-        app:layout_constraintTop_toTopOf="@id/ic_filter"
-        app:layout_constraintBottom_toBottomOf="@id/ic_filter">
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btn_history_daily_pickup"
+            android:id="@+id/linear1"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:paddingVertical="8dp"
-            android:paddingHorizontal="18dp"
-            android:backgroundTint="@color/primary_700"
-            android:textColor="@color/neutral_100"
-            android:textSize="12sp"
-            android:text="Daily Pickup"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/img_user_profile"
+            app:layout_constraintStart_toEndOf="@id/img_user_profile"
+            app:layout_constraintTop_toTopOf="@id/img_user_profile">
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btn_history_arrived_stock"
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineHeight="48sp"
+                android:text="Zayn Malik"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineHeight="18sp"
+                android:text="287-HANDLER-1A"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnNotification"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:background="@drawable/ic_notification_false"
+            app:layout_constraintBottom_toBottomOf="@id/img_user_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/img_user_profile"
+            android:focusable="true" />
+
+        <ImageView
+            android:id="@+id/ic_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="36dp"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_user_profile" />
+
+        <TextView
+            android:id="@+id/tv_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="7dp"
-            android:paddingVertical="8dp"
-            android:paddingHorizontal="18dp"
-            android:backgroundTint="@color/neutral_100"
-            android:textColor="@color/primary_700"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/primary_700"
-            android:textSize="12sp"
-            android:text="Arrived Stock" />
+            app:layout_constraintTop_toTopOf="@id/ic_calendar"
+            app:layout_constraintBottom_toBottomOf="@id/ic_calendar"
+            app:layout_constraintStart_toEndOf="@id/ic_calendar"
+            android:text="19/09/2022"/>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/ic_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/ic_calendar"
+            app:layout_constraintBottom_toBottomOf="@id/ic_calendar"
+            app:layout_constraintStart_toStartOf="@id/guideline_center"
+            android:src="@drawable/ic_status"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/ic_status"
+            android:layout_marginLeft="7dp"
+            app:layout_constraintTop_toTopOf="@id/ic_status"
+            app:layout_constraintBottom_toBottomOf="@id/ic_status"
+            android:text="Approval Needed"/>
+
+        <!-- overview and input card start -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_overview_and_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ic_calendar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--    overview card start     -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="@color/primary_200"
+                    android:elevation="20dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_card_center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="177dp" />
+
+                        <ImageView
+                            android:id="@+id/logo_customer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/logo_customer"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/view_customer_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="@id/logo_customer"
+                            app:layout_constraintStart_toEndOf="@id/logo_customer"
+                            app:layout_constraintTop_toTopOf="@id/logo_customer">
+
+                            <TextView
+                                android:id="@+id/tv_customer_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="PT Shell Indonesia"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_customer_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:text="Bekasi Regency, West Java 17211"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_customer_stok"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:text="Stok: Solar"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/card_overview_divider"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="16.37dp"
+                            android:backgroundTint="@color/primary_200"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/view_customer_info" />
+
+                        <TextView
+                            android:id="@+id/current_stock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10.62dp"
+                            android:lineHeight="18sp"
+                            android:text="Current Stock"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="@id/card_overview_divider"
+                            app:layout_constraintTop_toBottomOf="@id/card_overview_divider" />
+
+                        <TextView
+                            android:id="@+id/tv_current_stock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="850kL"
+                            android:textColor="@color/neutral_500"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@id/card_overview_divider"
+                            app:layout_constraintTop_toBottomOf="@id/current_stock" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6dp"
+                            android:src="@drawable/ic_current_stock"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_current_stock"
+                            app:layout_constraintStart_toEndOf="@id/tv_current_stock"
+                            app:layout_constraintTop_toTopOf="@id/tv_current_stock" />
+
+                        <TextView
+                            android:id="@+id/sold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10.62dp"
+                            android:lineHeight="18sp"
+                            android:text="Sold"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="@id/guideline_card_center"
+                            app:layout_constraintTop_toBottomOf="@id/card_overview_divider" />
+
+                        <TextView
+                            android:id="@+id/tv_sold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="50kL"
+                            android:textColor="@color/neutral_500"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@id/sold"
+                            app:layout_constraintTop_toBottomOf="@id/sold" />
+
+                        <ImageView
+                            android:id="@+id/ic_data_input"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="30dp"
+                            app:layout_constraintTop_toBottomOf="@id/tv_current_stock"
+                            app:layout_constraintStart_toStartOf="@id/card_overview_divider"
+                            android:src="@drawable/ic_overview_status"/>
+
+                        <TextView
+                            android:id="@+id/tv_input_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="11dp"
+                            app:layout_constraintTop_toTopOf="@id/ic_data_input"
+                            app:layout_constraintBottom_toTopOf="@id/tv_overview_status_time"
+                            app:layout_constraintStart_toEndOf="@id/ic_data_input"
+                            android:textSize="13.63sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary_700"
+                            android:text="Approval Needed (Costumer)"/>
+
+                        <TextView
+                            android:id="@+id/tv_overview_status_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/tv_input_title"
+                            app:layout_constraintBottom_toBottomOf="@id/ic_data_input"
+                            app:layout_constraintStart_toStartOf="@id/tv_input_title"
+                            android:textSize="13.63sp"
+                            android:textColor="@color/tertiary_200"
+                            android:text="Requested 1 day ago"/>
+
+                        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                            android:id="@+id/btn_input"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/primary_700"
+                            android:layout_gravity="bottom|end"
+                            android:layout_margin="16dp"
+                            android:textSize="12sp"
+                            android:lineHeight="18sp"
+                            app:iconTint="@color/primary_200"
+                            android:textColor="@color/primary_200"
+                            android:textStyle="bold"
+                            app:icon="@drawable/ic_input"
+                            android:text="INPUT"
+                            android:clickable="true"
+                            app:layout_constraintTop_toBottomOf="@id/ic_data_input"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:focusable="true" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+                <!--    overview card end       -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+
+                    android:id="@+id/input_expanded_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="24dp"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="53dp"
+                    android:background="@color/primary_200"
+                    app:layout_constraintTop_toBottomOf="@id/btn_input"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ic_ARRIVED_STOCK"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_progress_done"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/tv_ARRIVED_STOCK"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:lineHeight="0sp"
+                        android:textColor="@color/primary_700"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_ARRIVED_STOCK"
+                        app:layout_constraintStart_toEndOf="@id/ic_ARRIVED_STOCK"
+                        android:text="ARRIVED STOCK"/>
+                    <TextView
+                        android:id="@+id/tv_ARRIVED_STOCK_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:lineHeight="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/neutral_500"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_ARRIVED_STOCK"
+                        app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
+                        android:text="900kL"/>
+                    <TextView
+                        android:id="@+id/tv_ARRIVED_STOCK_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13.63sp"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/secondary_500"
+                        app:layout_constraintTop_toBottomOf="@id/tv_ARRIVED_STOCK_amount"
+                        app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
+                        android:text="Approved 2 days ago"/>
+
+                    <ImageButton
+                        android:id="@+id/btn_add_arrived_stock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_add_data"
+                        app:layout_constraintTop_toTopOf="@id/tv_ARRIVED_STOCK"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_ARRIVED_STOCK_time"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <Button
+                        android:layout_width="2dp"
+                        android:layout_height="0dp"
+                        android:backgroundTint="@color/neutral_100"
+                        app:layout_constraintTop_toBottomOf="@id/ic_ARRIVED_STOCK"
+                        app:layout_constraintBottom_toTopOf="@id/ic_DAILY_PICKUP"
+                        app:layout_constraintStart_toStartOf="@id/ic_ARRIVED_STOCK"
+                        app:layout_constraintEnd_toEndOf="@id/ic_ARRIVED_STOCK" />
+                    <ImageView
+                        android:id="@+id/ic_DAILY_PICKUP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="@id/tv_DAILY_PICKUP"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_DAILY_PICKUP"
+                        app:layout_constraintStart_toStartOf="@id/ic_ARRIVED_STOCK"
+                        android:src="@drawable/ic_progress_doing"/>
+
+                    <TextView
+                        android:id="@+id/tv_DAILY_PICKUP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:lineHeight="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_700"
+                        android:layout_marginTop="22dp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_ARRIVED_STOCK_time"
+                        app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
+                        android:text="DAILY PICKUP"/>
+                    <TextView
+                        android:id="@+id/tv_DAILY_PICKUP_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:lineHeight="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/neutral_500"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_DAILY_PICKUP"
+                        app:layout_constraintStart_toStartOf="@id/tv_DAILY_PICKUP"
+                        android:text="50kL"/>
+                    <TextView
+                        android:id="@+id/tv_DAILY_PICKUP_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13.63sp"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/secondary_500"
+                        app:layout_constraintTop_toBottomOf="@id/tv_DAILY_PICKUP_amount"
+                        app:layout_constraintStart_toStartOf="@id/tv_DAILY_PICKUP"
+                        android:text="18/09/2022 at 2:09pm"/>
+                    <ImageButton
+                        android:id="@+id/btn_add_daily_pickup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_add_data"
+                        app:layout_constraintTop_toTopOf="@id/tv_DAILY_PICKUP"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_DAILY_PICKUP_time"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <Button
+                        android:layout_width="2dp"
+                        android:layout_height="0dp"
+                        android:backgroundTint="@color/neutral_100"
+                        app:layout_constraintTop_toBottomOf="@id/ic_DAILY_PICKUP"
+                        app:layout_constraintBottom_toTopOf="@id/ic_TANK_REST"
+                        app:layout_constraintStart_toStartOf="@id/ic_ARRIVED_STOCK"
+                        app:layout_constraintEnd_toEndOf="@id/ic_ARRIVED_STOCK" />
+                    <ImageView
+                        android:id="@+id/ic_TANK_REST"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="@id/tv_TANK_REST"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_TANK_REST"
+                        app:layout_constraintStart_toStartOf="@id/ic_ARRIVED_STOCK"
+                        android:src="@drawable/ic_progress_false"/>
+
+                    <TextView
+                        android:id="@+id/tv_TANK_REST"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:lineHeight="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/neutral_300"
+                        android:layout_marginTop="22dp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_DAILY_PICKUP_time"
+                        app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
+                        android:text="TANK REST"/>
+                    <ImageButton
+                        android:id="@+id/btn_add_tank_rest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_input_tank_rest_stock_opname"
+                        app:layout_constraintTop_toTopOf="@id/tv_TANK_REST"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_TANK_REST"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:visibility="gone"/>
+                    <TextView
+                        android:id="@+id/tv_tank_rest_time_remaining"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13.63sp"
+                        android:lineHeight="20sp"
+                        android:textColor="@color/tertiary_200"
+                        app:layout_constraintTop_toBottomOf="@id/tv_TANK_REST"
+                        app:layout_constraintStart_toStartOf="@id/tv_TANK_REST"
+                        android:text="Time remaining 02:50:47"
+                        android:visibility="gone"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+        <!--card overview and input end-->
+
+        <TextView
+            android:id="@+id/tv_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/card_overview_and_input"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="History"/>
+
+        <ImageView
+            android:id="@+id/ic_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_history"
+            app:layout_constraintStart_toStartOf="@id/tv_history"
+            android:src="@drawable/ic_filter" />
+
+        <LinearLayout
+            android:id="@+id/group_histories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/ic_filter"
+            android:layout_marginLeft="7dp"
+            app:layout_constraintTop_toTopOf="@id/ic_filter"
+            app:layout_constraintBottom_toBottomOf="@id/ic_filter">
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/btn_history_daily_pickup"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="18dp"
+                android:backgroundTint="@color/primary_700"
+                android:textColor="@color/neutral_100"
+                android:textSize="12sp"
+                android:text="Daily Pickup"/>
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/btn_history_arrived_stock"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginLeft="7dp"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="18dp"
+                android:backgroundTint="@color/neutral_100"
+                android:textColor="@color/primary_700"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/primary_700"
+                android:textSize="12sp"
+                android:text="Arrived Stock" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

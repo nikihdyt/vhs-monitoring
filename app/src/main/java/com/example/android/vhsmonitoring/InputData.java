@@ -1,13 +1,21 @@
 package com.example.android.vhsmonitoring;
 
+import static android.content.ContentValues.TAG;
+
+import static com.example.android.vhsmonitoring.Beranda.sessions_stockId;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +28,27 @@ import android.widget.ListPopupWindow;
 import android.widget.TextView;
 
 import com.example.android.vhsmonitoring.R;
+import com.example.android.vhsmonitoring.login.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class InputData extends AppCompatActivity {
+    SharedPreferences sharedpreferences;
     TextView tvInputTitle, tvDataInputted, tvSuccessMessage;
     ImageView icSuccessMessage;
     EditText etInputData;
@@ -34,6 +60,7 @@ public class InputData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_data);
 
+        sharedpreferences = getSharedPreferences(LoginActivity.sessions, Context.MODE_PRIVATE);
         tvInputTitle = findViewById(R.id.tv_input_title);
         etInputData = findViewById(R.id.et_input_data);
         btnSendData = findViewById(R.id.btn_send_data);
@@ -62,6 +89,8 @@ public class InputData extends AppCompatActivity {
                 icSuccessMessage.setVisibility(View.VISIBLE);
                 tvSuccessMessage.setVisibility(View.VISIBLE);
                 btnClose.setVisibility(View.VISIBLE);
+
+                handlerAddArrivedStock();
             }
         });
     }
@@ -105,5 +134,59 @@ public class InputData extends AppCompatActivity {
         overlay.add(dim);
     }
 
+    public void handlerAddArrivedStock(){
+        String data = etInputData.getText().toString();
+        int arrivedAmount = new Integer(data).intValue();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> approval = new HashMap<>();
+        approval.put("pertamina", false);
+        approval.put("handler", true);
+
+        Map<String, Object> ArrivedStock = new HashMap<>();
+        ArrivedStock.put("amount_arrival", arrivedAmount);
+        ArrivedStock.put("approval", approval);
+        ArrivedStock.put("date_arrival", dateFormat.format(date).toString());
+
+        notifyPertamina();
+
+        db.collection("stocks")
+                .whereEqualTo("id", sharedpreferences.getString(sessions_stockId, ""))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                db.collection("stocks/" + document.getId() + "/restock")
+                                        .add(ArrivedStock)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error adding document", e);
+                                            }
+                                        });
+                                break;
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void notifyPertamina() {
+        // send approval notification to pertamina that resotck opname has been done
+
+    }
 }
+

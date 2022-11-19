@@ -7,4 +7,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="overview"><u>OVERVIEW</u></string>
+    <string name="masuk">Masuk</string>
+    <string name="lupa_kata_sandi">Lupa Kata Sandi?</string>
+    <string name="ingat_saya">Ingat saya</string>
+    <string name="sandi">Kata Sandi</string>
+    <string name="nomor_id">Nomor ID</string>
+    <string name="headingPreviewLoginImage">Kemudahan Monitoring</string>
+    <string name="descriptionsPreviewLoginImage">Monitoring pembelian stok lebih mudah dalam genggaman anda.</string>
+
 </resources>
