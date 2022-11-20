@@ -35,9 +35,8 @@ import com.squareup.picasso.Picasso;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
-public class Beranda extends AppCompatActivity {
+public class BerandaHandler extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     public static final String sessions_affiliatedCustomer = "customer";
     public static final String sessions_stockId = "stock Id";
@@ -103,7 +102,7 @@ public class Beranda extends AppCompatActivity {
         btnArrivedStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Beranda.this, InputData.class);
+                Intent intent = new Intent(BerandaHandler.this, InputData.class);
                 intent.putExtra("inputType", "ARRIVED STOCK");
                 startActivity(intent);
             }
@@ -114,7 +113,7 @@ public class Beranda extends AppCompatActivity {
         btnDailyPickup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Beranda.this, InputData.class);
+                Intent intent = new Intent(BerandaHandler.this, InputData.class);
                 intent.putExtra("inputType", "DAILY PICKUP");
                 startActivity(intent);
             }
@@ -125,7 +124,7 @@ public class Beranda extends AppCompatActivity {
         btnNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Beranda.this, NotificationActivity.class);
+                Intent intent = new Intent(BerandaHandler.this, NotificationActivity.class);
                 startActivity(intent);
             }
         });
@@ -144,7 +143,7 @@ public class Beranda extends AppCompatActivity {
         btnTankRest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Beranda.this, StockOpname.class);
+                Intent intent = new Intent(BerandaHandler.this, StockOpname.class);
                 startActivity(intent);
             }
         });

@@ -2,7 +2,7 @@ package com.example.android.vhsmonitoring;
 
 import static android.content.ContentValues.TAG;
 
-import static com.example.android.vhsmonitoring.Beranda.sessions_stockId;
+import static com.example.android.vhsmonitoring.BerandaHandler.sessions_stockId;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +27,6 @@ import android.widget.ImageView;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
 
-import com.example.android.vhsmonitoring.R;
 import com.example.android.vhsmonitoring.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,9 +41,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class InputData extends AppCompatActivity {
@@ -124,7 +121,6 @@ public class InputData extends AppCompatActivity {
     }
 
     private static void applyDim(ViewGroup parent) {
-        // cek jenis input (arrived stock/daily pickup)
 
         Drawable dim = new ColorDrawable(Color.BLACK);
         dim.setBounds(0, 0, parent.getWidth(), parent.getHeight());

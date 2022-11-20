@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -17,7 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.android.vhsmonitoring.Beranda;
+import com.example.android.vhsmonitoring.BerandaCustomer;
+import com.example.android.vhsmonitoring.BerandaHandler;
 import com.example.android.vhsmonitoring.BerandaPusat;
 import com.example.android.vhsmonitoring.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -118,14 +118,14 @@ public class LoginActivity extends AppCompatActivity {
                                             editor.commit();
 
                                             if(document.getString("role").equals("Handler")){
-                                                Intent i = new Intent(getApplicationContext(), Beranda.class);
+                                                Intent i = new Intent(getApplicationContext(), BerandaHandler.class);
                                                 startActivity(i);
                                             } else if(document.getString("role").equals("Pertamina")) {
                                                 Intent i = new Intent(getApplicationContext(), BerandaPusat.class);
                                                 startActivity(i);
                                             } else if(document.getString("role").equals("Customer")) {
-                                                // customer activity class foes here
-                                                Log.d(TAG, "user is a customer");
+                                                Intent i = new Intent(getApplicationContext(), BerandaCustomer.class);
+                                                startActivity(i);
                                             }
                                         }
                                     }
@@ -166,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(sessions, Context.MODE_PRIVATE);
         boolean checkStatus = sharedpreferences.getBoolean(String.valueOf(sessions_loggedIn), false);
         if (checkStatus == true){
-            Intent i = new Intent(getApplicationContext(), Beranda.class);
+            Intent i = new Intent(getApplicationContext(), BerandaHandler.class);
             i.putExtra("name", sharedpreferences.getString(sessions_username, ""));
             i.putExtra("code", sharedpreferences.getString(sessions_userCode, ""));
             startActivity(i);

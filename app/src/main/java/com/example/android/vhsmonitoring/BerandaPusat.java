@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,7 +38,19 @@ public class BerandaPusat extends AppCompatActivity {
         setContentView(R.layout.activity_beranda_pusat);
 
         stockRequestStack();
+
+//        ApproveDailyPickup();
     }
+
+//    TODO
+//    implement recyclerview to show list of approval (get data from API)
+
+//    TODO
+//    implement function to show an approval popup
+    private void ApproveDailyPickup() {
+
+    }
+
 
     private void stockRequestStack() {
         mStockRequestsViewPager = findViewById(R.id.vp_stock_request);

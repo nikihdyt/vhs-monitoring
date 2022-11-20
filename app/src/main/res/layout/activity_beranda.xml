@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="25dp"
-        tools:context=".Beranda">
+        tools:context=".BerandaHandler">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_center"
@@ -312,12 +312,32 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             android:focusable="true" />
 
+                        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                            android:visibility="gone"
+                            android:id="@+id/btn_approval_customer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/primary_200"
+                            android:layout_gravity="bottom|end"
+                            android:layout_margin="16dp"
+                            android:textSize="12sp"
+                            android:lineHeight="18sp"
+                            app:iconTint="@color/primary_700"
+                            android:textColor="@color/primary_700"
+                            android:textStyle="bold"
+                            app:icon="@drawable/ic_input"
+                            android:text="APPROVAL"
+                            android:clickable="true"
+                            app:layout_constraintTop_toBottomOf="@id/ic_data_input"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:focusable="true" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>
                 <!--    overview card end       -->
                 <androidx.constraintlayout.widget.ConstraintLayout
-
+                    android:visibility="gone"
                     android:id="@+id/input_expanded_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -507,6 +527,19 @@
             app:layout_constraintTop_toBottomOf="@id/card_overview_and_input"
             app:layout_constraintStart_toStartOf="parent"
             android:text="History"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_history_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:textColor="@color/primary_700"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/card_overview_and_input"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Daily Pickup History"/>
 
         <ImageView
             android:id="@+id/ic_filter"
