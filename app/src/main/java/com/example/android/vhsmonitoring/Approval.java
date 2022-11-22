@@ -2,6 +2,7 @@ package com.example.android.vhsmonitoring;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,15 +20,25 @@ import android.widget.TextView;
 
 public class Approval extends AppCompatActivity {
     private String approvalType;
-    private Button btnClose;
+    private Button btnClose, btnApprove, btnOverviewNextToCloseBtn, btnOverviewNextToApprovalBtn;
     private TextView tvDeliveredStock, tvDeliveredStockAmount, tvArrivedStock, tvArrivedStockAmount;
+    private ConstraintLayout viewGroupApproval, viewGroupApprovalConfirmation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_approval);
 
+        // do approval pop-up
+        viewGroupApproval = findViewById(R.id.viewgroup_approve);
+        btnApprove = findViewById(R.id.btn_approve);
+        btnOverviewNextToApprovalBtn = findViewById(R.id.btn_overview_next_to_btn_approve);
+
+        // success message pop-op
+        viewGroupApprovalConfirmation = findViewById(R.id.viewgroup_approval_confirmation);
         btnClose = findViewById(R.id.btn_close);
+        btnOverviewNextToCloseBtn = findViewById(R.id.btn_overview_next_to_btn_close);
+
         tvDeliveredStock = findViewById(R.id.tv_delivered);
         tvDeliveredStockAmount = findViewById(R.id.tv_delivered_amount);
         tvArrivedStock = findViewById(R.id.tv_arrived_stock);
@@ -37,22 +48,17 @@ public class Approval extends AppCompatActivity {
         approvalType = intent.getStringExtra("approvalType");
 
         setPopUpWindow(approvalType);
+        approve();
+        goToOverview();
         closePopUp();
 
-    }
-
-    public void closePopUp() {
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
     private void setPopUpWindow(String approvalType) {
         CardView cardApproval = findViewById(R.id.card_approval);
         Button cardHeaderTitle = findViewById(R.id.tv_card_header);
+
+        viewGroupApprovalConfirmation.setVisibility(View.GONE);
         cardHeaderTitle.setText(approvalType);
 
         tvDeliveredStock.setVisibility(View.GONE);
@@ -84,5 +90,42 @@ public class Approval extends AppCompatActivity {
     }
 
 
+    public void approve() {
+        btnApprove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewGroupApproval.setVisibility(View.GONE);
+                viewGroupApprovalConfirmation.setVisibility(View.VISIBLE);
+
+            }
+        });
+    }
+
+    public void closePopUp() {
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+
+    public void goToOverview() {
+        btnOverviewNextToApprovalBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Approval.this, OverviewActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnOverviewNextToCloseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Approval.this, OverviewActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 
 }

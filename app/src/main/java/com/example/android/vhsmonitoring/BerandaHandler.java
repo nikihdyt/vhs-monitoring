@@ -19,6 +19,7 @@ import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ public class BerandaHandler extends AppCompatActivity {
     private CardView overviewCard;
     private ImageView icTankRest;
     private TextView tvTankRest, tvTankRestTimeRemaining;
+    private Button btnGoToOverview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +67,13 @@ public class BerandaHandler extends AppCompatActivity {
         tvTankRest = findViewById(R.id.tv_TANK_REST);
         tvTankRestTimeRemaining = findViewById(R.id.tv_tank_rest_time_remaining);
         btnTankRest = findViewById(R.id.btn_add_tank_rest);
+        btnGoToOverview = findViewById(R.id.btn_go_to_overview);
 
         inputData();
         addArrivedStock();
         addDailyPickup();
         goToNotifications();
+        goToOverview();
 
         // TODO
         // tambah validasi: jika tanggal == akhir bulan
@@ -125,6 +129,16 @@ public class BerandaHandler extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(BerandaHandler.this, NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void goToOverview() {
+        btnGoToOverview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BerandaHandler.this, OverviewActivity.class);
                 startActivity(intent);
             }
         });

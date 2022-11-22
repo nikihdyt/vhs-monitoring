@@ -332,6 +332,23 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             android:focusable="true" />
 
+                        <Button
+                            android:id="@+id/btn_go_to_overview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/neutral_100"
+                            android:outlineSpotShadowColor="@color/neutral_100"
+                            android:textColor="@color/primary_700"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:lineHeight="18sp"
+                            android:letterSpacing="0.08"
+                            android:padding="0dp"
+                            android:layout_marginRight="15dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:text="@string/overview"/>
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>

@@ -13,6 +13,7 @@ import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,6 +48,7 @@ public class BerandaCustomer extends AppCompatActivity {
     private ImageView icFilterHandler;
     private TextView tvHistoryHandler, tvHistoryCustomer;
     private LinearLayout groupHistoryFilterHandler;
+    private Button btnGoToOverview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class BerandaCustomer extends AppCompatActivity {
         tvHistoryCustomer = findViewById(R.id.tv_history_customer);
         icFilterHandler = findViewById(R.id.ic_filter);
         groupHistoryFilterHandler = findViewById(R.id.group_histories);
+        btnGoToOverview = findViewById(R.id.btn_go_to_overview);
 
         btnInput.setVisibility(View.GONE);
         btnApproval.setVisibility(View.VISIBLE);
@@ -71,6 +74,7 @@ public class BerandaCustomer extends AppCompatActivity {
 
         ApproveDailyPickup();
         goToNotifications();
+        goToOverview();
 
 
     }
@@ -92,6 +96,16 @@ public class BerandaCustomer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(BerandaCustomer.this, NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void goToOverview() {
+        btnGoToOverview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BerandaCustomer.this, OverviewActivity.class);
                 startActivity(intent);
             }
         });
