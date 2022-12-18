@@ -3,18 +3,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.android.vhsmonitoring">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_vhs"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo_vhs"
         android:supportsRtl="true"
         android:theme="@style/Theme.VHSMonitoring"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".Approval.Approval"
+            android:exported="false"
+            android:theme="@style/Theme.VHSMonitoring.PopUp">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Overview.OverviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InputData.StockOpname"
+            android:exported="false"
+            android:theme="@style/Theme.VHSMonitoring.PopUp" />
+        <activity
+            android:name=".Notifications.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InputData.InputData"
+            android:exported="false"
+            android:theme="@style/Theme.VHSMonitoring.PopUp" />
+        <activity
+            android:name=".Dashboard.Dashboard"
+            android:exported="true" />
+        <activity
+            android:name=".EncryptionTest"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.Controller.AdminController"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreeen.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +55,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
