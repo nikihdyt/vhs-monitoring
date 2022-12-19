@@ -6,6 +6,10 @@ public class RestockData {
     private int amount_sent, amount_arrived;
     private boolean approval_handler, approval_pertamina;
 
+    public RestockData() {
+        // empty constructor
+    }
+
     public RestockData(String id, String id_handler, String id_pertamina, String id_customer, String address, String date_sent, String date_arrived, String status, int amount_sent, int amount_arrived, boolean approval_handler, boolean approval_pertamina) {
         this.id = id;
         this.id_handler = id_handler;

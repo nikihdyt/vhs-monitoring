@@ -23,6 +23,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.android.vhsmonitoring.Admin.Model.ClaimContract;
 import com.example.android.vhsmonitoring.Admin.Model.CustomerAddress;
@@ -30,11 +31,14 @@ import com.example.android.vhsmonitoring.Admin.Model.StockData;
 import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.DailyPickupData;
 import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.RestockData;
 import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.StockOpnameData;
+import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.StockRequest;
 import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.StockTransactions;
 import com.example.android.vhsmonitoring.Admin.Model.Users.UserCustomer;
 import com.example.android.vhsmonitoring.Admin.Model.Users.UserData;
 import com.example.android.vhsmonitoring.Admin.Model.Users.UserHandler;
 import com.example.android.vhsmonitoring.Approval.Approval;
+import com.example.android.vhsmonitoring.Dashboard.stockrequest.StockRequestAdapter;
+import com.example.android.vhsmonitoring.Dashboard.stockrequest.StockRequestModel;
 import com.example.android.vhsmonitoring.Encryption;
 import com.example.android.vhsmonitoring.InputData.InputData;
 import com.example.android.vhsmonitoring.Notifications.NotificationActivity;
@@ -56,9 +60,9 @@ import java.util.List;
 
 public class Dashboard extends AppCompatActivity {
     public List<StockTransactions> stockHistories = new ArrayList<>();
-    DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-    SharedPreferences sessions;
-    Gson gsonData = new Gson();
+    public DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+    public SharedPreferences sessions;
+    public Gson gsonData = new Gson();
     public String jSonData;
 
     public UserHandler handler;
@@ -72,6 +76,14 @@ public class Dashboard extends AppCompatActivity {
     public StockData selfStockData;
 
     public UserData pertamina;
+    public StockData pertaminaCustomerStockData;
+    public StockRequest handlerRestockRequest;
+    public int approvalNeededAmount = 0;
+    public int activeTransaction = 0;
+    public int stockRequest = 0;
+    public List<StockData> pertaminaCustomers = new ArrayList<>();
+    public List<StockRequest> stockRequestsData = new ArrayList<>();
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -95,7 +107,7 @@ public class Dashboard extends AppCompatActivity {
             viewCustomerDashboard();
         } else if ("pertamina".equals(sessions.getString(sessions_userRole, ""))) {
             pertamina = gsonData.fromJson(jSonData, UserData.class);
-            setContentView(R.layout.activity_beranda_pusat);
+            viewPertaminaDashboard();
         }
     }
 
@@ -214,7 +226,7 @@ public class Dashboard extends AppCompatActivity {
                 intent.putExtra("handlerCustomerAddress", json_handlerCustomerAddress);
                 intent.putExtra("handlerCustomerStock", json_handlerCustomerStock);
                 intent.putExtra("claimContract", json_claimContract);
-                intent.putExtra("typeInput", "DAILY PICKUP");
+                intent.putExtra("inputType", "DAILY PICKUP");
                 startActivity(intent);
             }
         });
@@ -316,8 +328,8 @@ public class Dashboard extends AppCompatActivity {
                 for (DataSnapshot item : snapshot.getChildren()) {
                     handlerCustomerStock = item.getValue(StockData.class);
                     if (handlerCustomerStock.getBuyerId().equals(handlerCustomerData.getId())) {
-                        String currentStock = String.valueOf(handlerCustomerStock.getTank_rest()) + "kL";
-                        String stockSold = String.valueOf(handlerCustomerStock.getSold()) + "kL";
+                        String currentStock = handlerCustomerStock.getTank_rest() + "kL";
+                        String stockSold = handlerCustomerStock.getSold() + "kL";
 
                         //set stock data
                         tvCustomerStockType.setText(String.format("stock: %s", handlerCustomerStock.getType()));
@@ -538,8 +550,8 @@ public class Dashboard extends AppCompatActivity {
                 for (DataSnapshot item : snapshot.getChildren()) {
                     selfStockData = item.getValue(StockData.class);
                     if (selfStockData.getBuyerId().equals(customer.getId())) {
-                        String currentStock = String.valueOf(selfStockData.getTank_rest()) + "kL";
-                        String stockSold = String.valueOf(selfStockData.getSold()) + "kL";
+                        String currentStock = selfStockData.getTank_rest() + "kL";
+                        String stockSold = selfStockData.getSold() + "kL";
 
                         //set stock data
                         tvCustomerStockType.setText(selfStockData.getType());
@@ -560,6 +572,150 @@ public class Dashboard extends AppCompatActivity {
         tvOverviewStatusTime.setText(R.string.fresh_stock);
     }
 
+    // pertamina dashboard
+    public void viewPertaminaDashboard() {
+        // set layout for pertamina dashboard
+        setContentView(R.layout.activity_beranda_pusat);
+
+        // get today date
+        @SuppressLint("SimpleDateFormat")
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+
+        // views for pertamina dashboard
+        TextView tvUserName = findViewById(R.id.tv_user_name);
+        TextView tvUserId = findViewById(R.id.tv_user_id);
+        TextView tvCalendar = findViewById(R.id.tv_calendar);
+        TextView tvApprovalNeeded = findViewById(R.id.tv_approval_needed_amount);
+        TextView tvActiveTransactionAmount =findViewById(R.id.tv_active_transaction_amount);
+        TextView tvStockRequestAmount = findViewById(R.id.tv_stock_request_amount);
+
+        Encryption encode = new Encryption();
+
+        tvUserName.setText(pertamina.getName());
+        tvUserId.setText(encode.decrypt(pertamina.getCode()));
+        tvCalendar.setText(dateFormat.format(date));
+
+        // approval needed for pertamina
+        db.child("data_stock").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    pertaminaCustomerStockData = item.getValue(StockData.class);
+                    assert pertaminaCustomerStockData != null;
+                    if (pertaminaCustomerStockData.getManagerId().equals(pertamina.getId()) && "finished".equals(pertaminaCustomerStockData.getTank_status())) {
+                        db.child("data_stock").child(pertaminaCustomerStockData.getId()).child("stockDistributions").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot item : snapshot.getChildren()) {
+                                    StockTransactions stockData = item.getValue(StockTransactions.class);
+                                    if ("StockOpname".equals(stockData.getType())) {
+                                        StockOpnameData data = item.getValue(StockOpnameData.class);
+                                        assert data != null;
+                                        if (!data.isApproval_pertamina()) { approvalNeededAmount += 1; }
+                                    } else if ("Restock".equals(stockData.getType())) {
+                                        StockOpnameData data = item.getValue(StockOpnameData.class);
+                                        assert data != null;
+                                        if (!data.isApproval_pertamina()) { approvalNeededAmount += 1; }
+                                    } else if ("DailyPickup".equals(stockData.getType())) {
+                                        StockOpnameData data = item.getValue(StockOpnameData.class);
+                                        assert data != null;
+                                        if (!data.isApproval_pertamina()) { approvalNeededAmount += 1; }
+                                    }
+                                }
+
+                                if (!"finished".equals(pertaminaCustomerStockData.getTank_status())) {
+                                    activeTransaction += 1;
+                                    pertaminaCustomers.add(pertaminaCustomerStockData);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.d("ERROR", "error while taking handlerCustomerStockData");
+                            }
+                        });
+                    }
+                }
+
+                tvApprovalNeeded.setText(String.valueOf(approvalNeededAmount));
+                tvActiveTransactionAmount.setText("");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("ERROR", "error while taking handlerCustomerStockData");
+            }
+        });
+
+        // stock request for pertamina
+        db.child("data_stock_request").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    handlerRestockRequest = item.getValue(StockRequest.class);
+                    assert handlerRestockRequest != null;
+                    if (!handlerRestockRequest.isStatus()) {
+                        stockRequest += 1;
+                        stockRequestsData.add(handlerRestockRequest);
+                    }
+                }
+
+                tvStockRequestAmount.setText(String.valueOf(stockRequest));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("ERROR", "error while taking handlerCustomerStockData");
+            }
+        });
+
+        // configure restock stack
+        stockRequestStack();
+
+    }
+
+    private void stockRequestStack() {
+        ViewPager mStockRequestsViewPager = findViewById(R.id.vp_stock_request);
+        ArrayList<StockRequestModel> mStcoRequestsList = new ArrayList<>();
+
+        List<Integer> custLogo = new ArrayList<>();
+        List<String> custName = new ArrayList<>();
+        List<String> custStock = new ArrayList<>();
+
+        // add data from stock request to be displayed in stack
+        for (int i = 0; i < stockRequestsData.size(); i++) {
+            if ("default".equals(stockRequestsData.get(i).getCustomerLogo())) {
+                custLogo.add(R.drawable.logo_customer);
+            }
+            custName.add(stockRequestsData.get(i).getCustomerName());
+            custStock.add(stockRequestsData.get(i).getCustomerStockType());
+        }
+
+        for(int j = 0; j < custLogo.size(); j++) {
+            StockRequestModel stockRequestModel = new StockRequestModel();
+            stockRequestModel.setCustLogo(custLogo.get(j));
+            stockRequestModel.setCustName(custName.get(j));
+            stockRequestModel.setStokType(custStock.get(j));
+            mStcoRequestsList.add(stockRequestModel);
+        }
+
+        StockRequestAdapter mStockRequestAdapter = new StockRequestAdapter(mStcoRequestsList,this);
+        mStockRequestsViewPager.setPageTransformer(true, new StockRequestViewPagerStack());
+        mStockRequestsViewPager.setOffscreenPageLimit(2);
+        mStockRequestsViewPager.setAdapter(mStockRequestAdapter);
+    }
+    private class StockRequestViewPagerStack implements ViewPager.PageTransformer {
+        @Override
+        public void transformPage(@NonNull View page, float position) {
+            if (position >= 0) {
+                page.setTranslationX(page.getWidth() * position);
+                page.setTranslationY(30 * position);
+                // page.setScaleX(0.7f - 0.05f * position);
+                // page.setScaleY(0.7f);
+            }
+        }
+    }
 }
 
 

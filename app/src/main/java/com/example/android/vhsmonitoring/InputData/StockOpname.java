@@ -155,7 +155,7 @@ public class StockOpname extends AppCompatActivity {
                                             DatabaseReference referenceLosses = FirebaseDatabase.getInstance().getReference();
                                             Map<String, Object> updateLosses = new HashMap<>();
                                             updateLosses.put("amount", totalLosses);
-                                            referenceLosses.child("data_losses/" + stockLosses.getId()).child(handlerCustomerStock.getId()).updateChildren(updateLosses);
+                                            referenceLosses.child("data_losses").child(stockLosses.getId()).updateChildren(updateLosses);
 
                                             TextView tvStockOpnameLosses = findViewById(R.id.tv_stock_opname_losses);
                                             tvStockOpnameLosses.setText(String.format("%skL", String.valueOf(losessAmount)));

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="21.74dp"
     android:paddingHorizontal="24dp"
-    tools:context=".InputData.Restock"
+    tools:context=".InputData.InputData"
     android:id="@+id/card_input_data">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_overview"
@@ -169,6 +169,7 @@
                 app:layout_constraintStart_toStartOf="@id/guideline_card_center"
                 android:src="@drawable/ic_calendar"/>
             <TextView
+                android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
