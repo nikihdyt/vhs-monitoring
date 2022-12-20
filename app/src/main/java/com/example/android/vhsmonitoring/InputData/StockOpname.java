@@ -128,7 +128,7 @@ public class StockOpname extends AppCompatActivity {
                     StockOpnameData stockOpname = new StockOpnameData(stockOpname_id, handlerCustomerData.getHandlerId(), handlerCustomerData.getPertaminaId(), handlerCustomerData.getId(), handlerCustomerStock.getId(), dateFormat.format(date), "", "Approval Needed", "StockOpname", tankRest, true, false);
 
                     assert stockOpname_id != null;
-                    db.child("data_stock/" + handlerCustomerStock.getId() + "/stockDistributions").child(stockOpname_id).setValue(stockOpname).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    db.child("data_stock/" + handlerCustomerStock.getId() + "/stock_distributions").child(stockOpname_id).setValue(stockOpname).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             stockOpnameInputCard.setVisibility(View.GONE);
@@ -186,7 +186,7 @@ public class StockOpname extends AppCompatActivity {
                             TextView tvApprovedBy = findViewById(R.id.tv_approved_by);
 
                             tvStockOpnameSoldAmount.setText(String.format("%skL", String.valueOf(handlerCustomerStock.getSold())));
-                            tvStockOpnameDeliveredAmount.setText(R.string.claim);
+                            tvStockOpnameDeliveredAmount.setText("1000kl");
                             tvStockOpnameCurrentStockAmount.setText(String.format("%skL", String.valueOf(handlerCustomerStock.getTank_rest())));
                             tvStockOpnameTankRestAmount.setText(String.format("%skL", String.valueOf(tankRest)));
                             tvStockOpnameLosessClaim.setText(R.string.default_amount);

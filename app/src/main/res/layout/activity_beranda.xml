@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="180dp" />
+            app:layout_constraintGuide_percent="0.50121653" />
 
         <ImageView
             android:id="@+id/img_user_profile"
@@ -335,6 +336,7 @@
                 </com.google.android.material.card.MaterialCardView>
                 <!--    overview card end       -->
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:visibility="gone"
                     android:id="@+id/input_expanded_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -376,7 +378,7 @@
                         android:layout_marginTop="5dp"
                         app:layout_constraintTop_toBottomOf="@id/tv_ARRIVED_STOCK"
                         app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
-                        android:text="900kL"/>
+                        android:text="1000kL"/>
                     <TextView
                         android:id="@+id/tv_ARRIVED_STOCK_time"
                         android:layout_width="wrap_content"
@@ -386,7 +388,7 @@
                         android:textColor="@color/secondary_500"
                         app:layout_constraintTop_toBottomOf="@id/tv_ARRIVED_STOCK_amount"
                         app:layout_constraintStart_toStartOf="@id/tv_ARRIVED_STOCK"
-                        android:text="Approved 2 days ago"/>
+                        android:text="@string/fresh_stock"/>
 
                     <ImageButton
                         android:id="@+id/btn_add_arrived_stock"
@@ -437,7 +439,7 @@
                         android:layout_marginTop="5dp"
                         app:layout_constraintTop_toBottomOf="@id/tv_DAILY_PICKUP"
                         app:layout_constraintStart_toStartOf="@id/tv_DAILY_PICKUP"
-                        android:text="50kL"/>
+                        android:text="0kL"/>
                     <TextView
                         android:id="@+id/tv_DAILY_PICKUP_time"
                         android:layout_width="wrap_content"
@@ -447,7 +449,7 @@
                         android:textColor="@color/secondary_500"
                         app:layout_constraintTop_toBottomOf="@id/tv_DAILY_PICKUP_amount"
                         app:layout_constraintStart_toStartOf="@id/tv_DAILY_PICKUP"
-                        android:text="18/09/2022 at 2:09pm"/>
+                        android:text="@string/fresh_stock"/>
                     <ImageButton
                         android:id="@+id/btn_add_daily_pickup"
                         android:layout_width="wrap_content"
@@ -532,6 +534,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
+            android:layout_marginBottom="10dp"
             android:textColor="@color/primary_700"
             android:textStyle="bold"
             android:textSize="18sp"

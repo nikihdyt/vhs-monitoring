@@ -58,6 +58,7 @@
         android:background="@drawable/ic_back" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notificationRecycler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"

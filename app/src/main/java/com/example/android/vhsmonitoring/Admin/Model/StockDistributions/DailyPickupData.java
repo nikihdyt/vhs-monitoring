@@ -29,4 +29,28 @@ public class DailyPickupData extends StockTransactions {
             setStatus("Approval Needed (Customer)");
         }
     }
+
+    public boolean isApproval_handler() {
+        return approval_handler;
+    }
+
+    public void setApproval_handler(boolean approval_handler) {
+        this.approval_handler = approval_handler;
+    }
+
+    public boolean isApproval_pertamina() {
+        return approval_pertamina;
+    }
+
+    public void setApproval_pertamina(boolean approval_pertamina) {
+        this.approval_pertamina = approval_pertamina;
+    }
+
+    public boolean isApproval_customer() {
+        return approval_customer;
+    }
+
+    public void setApproval_customer(boolean approval_customer) {
+        this.approval_customer = approval_customer;
+    }
 }

@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 if (userSession) {
                     // redirect user to dashboard
                     startActivity(new Intent(MainActivity.this, Dashboard.class));
+                    finish();
                 } else {
                     resetSessions();
                 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingVertical="12dp"
     android:paddingHorizontal="24dp">
@@ -10,23 +10,48 @@
         android:id="@+id/logo_customer"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/logo_customer"/>
 
     <TextView
         android:id="@+id/tv_notif_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_toRightOf="@id/logo_customer"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@id/logo_customer"
         android:text="Approval"/>
 
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:text="16:03"/>
+
+    <TextView
+        android:id="@+id/tv_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_notif_type"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@id/logo_customer"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_notif_type"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@id/logo_customer"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/tv_selfDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_notif_type"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@id/logo_customer"
+        android:text=""/>
 
 </RelativeLayout>

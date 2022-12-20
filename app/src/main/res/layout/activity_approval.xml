@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="21.74dp"
     android:paddingHorizontal="24dp"
-    tools:context=".InputData.Restock"
+    tools:context=".Approval.Approval"
     android:id="@+id/card_approval">
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"

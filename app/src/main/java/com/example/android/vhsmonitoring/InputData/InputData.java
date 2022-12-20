@@ -122,14 +122,16 @@ public class InputData extends AppCompatActivity {
 
                 if (!"".equals(etInputData.getText().toString())) {
                     int amount = Integer.parseInt(etInputData.getText().toString());
+                    TextView tvDataInputted = findViewById(R.id.tvDataInputted);
+                    tvDataInputted.setText(String.format("%skL", String.valueOf(amount)));
 
                     // Separate based on inputType
                     if ("ARRIVED STOCK".equals(inputType)) {
-                        String arrivedStock_id = db.child("data_stock").child(handlerCustomerStock.getId()).push().getKey();
+                        String arrivedStock_id = db.child("data_stock").child(handlerCustomerStock.getId()).child("stock_distributions").push().getKey();
                         String CustomerAddress = String.format("%s, %s %s", handlerCustomerAddress.getCity(), handlerCustomerAddress.getProvince(), handlerCustomerAddress.getPostalCode());
-                        RestockData restock = new RestockData(arrivedStock_id, handlerCustomerData.getHandlerId(), handlerCustomerData.getPertaminaId(), handlerCustomerData.getId(), CustomerAddress, "get date sent", dateFormat.format(date), "Need Approval", 0, amount, true, false);
+                        RestockData restock = new RestockData(arrivedStock_id, handlerCustomerData.getHandlerId(), handlerCustomerData.getPertaminaId(), handlerCustomerData.getId(), CustomerAddress, "", dateFormat.format(date), "Need Approval (pertamina)", 100, amount, true, false);
                         if (arrivedStock_id != null) {
-                            db.child("data_stock").child(handlerCustomerStock.getId()).setValue(restock).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            db.child("data_stock").child(handlerCustomerStock.getId()).child("stock_distributions").child(arrivedStock_id).setValue(restock).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Log.d("SUCCESS", arrivedStock_id);
@@ -170,7 +172,7 @@ public class InputData extends AppCompatActivity {
                         String dailyPickup_id = db.child("data_stock").child(handlerCustomerStock.getId()).push().getKey();
                         DailyPickupData dailyPickup = new DailyPickupData(dailyPickup_id, handler.getId(), handlerCustomerData.getPertaminaId(), handlerCustomerData.getId(), handlerCustomerStock.getId(), dateFormat.format(date), "", "Need Approval", "Daily Pickup", amount, true, false, false);
                         if (dailyPickup_id != null) {
-                            db.child("data_stock").child(handlerCustomerStock.getId()).setValue(dailyPickup).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            db.child("data_stock").child(handlerCustomerStock.getId()).child("stock_distributions").child(dailyPickup_id).setValue(dailyPickup).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Log.d("SUCCESS", dailyPickup_id);
@@ -184,9 +186,11 @@ public class InputData extends AppCompatActivity {
 
                             // update stock amount
                             int newTankAmount = handlerCustomerStock.getTank_rest() - amount;
+                            int soldAmount = handlerCustomerStock.getSold() + amount;
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                             Map<String, Object> updateTankAmount = new HashMap<>();
                             updateTankAmount.put("tank_rest", newTankAmount);
+                            updateTankAmount.put("sold", soldAmount);
                             reference.child("data_stock").child(handlerCustomerStock.getId()).updateChildren(updateTankAmount);
 
                             // send notifications to pertamina and customer
@@ -227,6 +231,8 @@ public class InputData extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Please input your data", Toast.LENGTH_SHORT).show();
                 }
+
+
             }
         });
     }
@@ -267,8 +273,8 @@ public class InputData extends AppCompatActivity {
 
         // stock data
         tvDate.setText(dateFormat.format(date));
-        tvCurrentStock.setText(String.valueOf(handlerCustomerStock.getTank_rest()));
-        tvSold.setText(String.valueOf(handlerCustomerStock.getSold()));
+        tvCurrentStock.setText(String.format("%skL", String.valueOf(handlerCustomerStock.getTank_rest())));
+        tvSold.setText(String.format("%skL", String.valueOf(handlerCustomerStock.getSold())));
         addDataType.setText(inputType);
 
         // customer data

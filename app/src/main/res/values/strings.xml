@@ -92,7 +92,7 @@
     <string name="delivered_amount">delivered amount</string>
     <string name="losses_claim">losses claim</string>
     <string name="default_delivered_amount">1000kL</string>
-    <string name="claim">claim</string>
+    <string name="claim">1000kL</string>
     <string name="approval_needed">Approval Needed</string>
     <string name="nothing_to_do">Nothing to do</string>
     <string name="today">Today</string>
