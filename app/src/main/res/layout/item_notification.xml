@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingVertical="12dp"
-    android:paddingHorizontal="24dp">
+    android:paddingVertical="12dp">
 
     <ImageView
         android:id="@+id/logo_customer"
@@ -12,46 +11,96 @@
         android:layout_height="44dp"
         android:src="@drawable/logo_customer"/>
 
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/logo_customer"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/dataNotifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_notif_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textSize="10sp"
+                android:textColor="#AEAEAE"
+                android:text="@string/approval_default"/>
+
+            <TextView
+                android:id="@+id/tv_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_notif_type"
+                android:layout_marginStart="12dp"
+                android:text="@string/customer_name"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="#090909"/>
+
+            <TextView
+                android:id="@+id/tv_selfDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_heading"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#575757"
+                android:textSize="12sp"
+                android:text="@string/descriptions_messages" />
+
+            <TextView
+                android:id="@+id/tv_dateNotifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_selfDescription"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#AEAEAE"
+                android:textSize="10sp"
+                android:text="@string/default_date"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/dataNotifications2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="@string/default_time"
+                android:textSize="10sp"
+                android:textColor="#AEAEAE"/>
+
+            <ImageView
+                android:id="@+id/unread_marker"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tv_time"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_notifications" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/tv_notif_type"
+        android:visibility="gone"
+        android:id="@+id/tv_hiddenId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_toEndOf="@id/logo_customer"
-        android:text="Approval"/>
-
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:text="16:03"/>
-
-    <TextView
-        android:id="@+id/tv_heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_notif_type"
-        android:layout_marginStart="12dp"
-        android:layout_toEndOf="@id/logo_customer"
-        android:text=""/>
-
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_notif_type"
-        android:layout_marginStart="12dp"
-        android:layout_toEndOf="@id/logo_customer"
-        android:text=""/>
-
-    <TextView
-        android:id="@+id/tv_selfDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_notif_type"
-        android:layout_marginStart="12dp"
-        android:layout_toEndOf="@id/logo_customer"
-        android:text=""/>
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@id/logo_customer" />
 
 </RelativeLayout>

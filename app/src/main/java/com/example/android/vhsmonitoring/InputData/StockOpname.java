@@ -118,6 +118,8 @@ public class StockOpname extends AppCompatActivity {
                 EditText etInputData = findViewById(R.id.et_input_data);
                 if ("".equals(etInputData.getText().toString())) {
                     Toast.makeText(getApplicationContext(), "Please insert the stock amount", Toast.LENGTH_SHORT).show();
+                } else if (Integer.parseInt(etInputData.getText().toString()) > handlerCustomerStock.getTank_rest()) {
+                    Toast.makeText(getApplicationContext(), "Please insert reasonable amount", Toast.LENGTH_SHORT).show();
                 } else {
                     int tankRest = Integer.parseInt(etInputData.getText().toString());
                     String notification_id = db.child("data_notification").push().getKey();
@@ -125,7 +127,7 @@ public class StockOpname extends AppCompatActivity {
                     String stockOpname_id = db.child("data_stock/" + handlerCustomerStock.getId()).push().getKey();
 
                     NotificationsData notification = new NotificationsData(notification_id, handlerCustomerStock.getManagerId(), handlerCustomerStock.getId(), stockOpname_id, notificationMessage, dateFormat.format(date), false);
-                    StockOpnameData stockOpname = new StockOpnameData(stockOpname_id, handlerCustomerData.getHandlerId(), handlerCustomerData.getPertaminaId(), handlerCustomerData.getId(), handlerCustomerStock.getId(), dateFormat.format(date), "", "Approval Needed", "StockOpname", tankRest, true, false);
+                    StockOpnameData stockOpname = new StockOpnameData(stockOpname_id, handlerCustomerData.getHandlerId(), handlerCustomerData.getPertaminaId(), handlerCustomerData.getId(), handlerCustomerStock.getId(), dateFormat.format(date), "", "Approval Needed (Pertamina)", "StockOpname", tankRest, true, false);
 
                     assert stockOpname_id != null;
                     db.child("data_stock/" + handlerCustomerStock.getId() + "/stock_distributions").child(stockOpname_id).setValue(stockOpname).addOnSuccessListener(new OnSuccessListener<Void>() {

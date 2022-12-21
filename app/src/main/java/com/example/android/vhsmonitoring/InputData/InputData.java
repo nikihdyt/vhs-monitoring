@@ -29,6 +29,7 @@ import com.example.android.vhsmonitoring.Admin.Model.StockData;
 import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.DailyPickupData;
 import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.RestockData;
 import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.StockOpnameData;
+import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.StockRequest;
 import com.example.android.vhsmonitoring.Admin.Model.Users.UserCustomer;
 import com.example.android.vhsmonitoring.Admin.Model.Users.UserHandler;
 import com.example.android.vhsmonitoring.R;
@@ -50,8 +51,9 @@ import java.util.Map;
 
 public class InputData extends AppCompatActivity {
     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-    Gson gsonData = new Gson();
-    String jSonData;
+    public Gson gsonData = new Gson();
+    public String jSonData;
+    public int minimumTankRest = 800;
     private String inputType;
 
     private TextView tvInputTitle, tvDataInputted, tvSuccessMessage;
@@ -194,17 +196,18 @@ public class InputData extends AppCompatActivity {
                             reference.child("data_stock").child(handlerCustomerStock.getId()).updateChildren(updateTankAmount);
 
                             // send notifications to pertamina and customer
-                            String updateNotification_id = db.child("data_notifications").push().getKey();
-                            String notificationMessage = "Approval Needed for arrived stock in " + handlerCustomerData.getName() + "with value of " + String.valueOf(amount)  + "kL and total value as much as " + String.valueOf(newTankAmount);
+                            String updateNotification_id1 = db.child("data_notifications").push().getKey();
+                            String updateNotification_id2 = db.child("data_notifications").push().getKey();
+                            String notificationMessage = "Approval Needed for arrived stock in " + handlerCustomerData.getName() + " with value of " + String.valueOf(amount)  + "kL and total value as much as " + String.valueOf(newTankAmount);
 
-                            NotificationsData notificationPertamina = new NotificationsData(updateNotification_id, handlerCustomerStock.getManagerId(), handlerCustomerStock.getId(), dailyPickup_id, notificationMessage, dateFormat.format(date), false);
-                            NotificationsData notificationCustomer = new NotificationsData(updateNotification_id, handlerCustomerStock.getManagerId(), handlerCustomerStock.getId(), dailyPickup_id, notificationMessage, dateFormat.format(date), false);
-                            if (updateNotification_id != null) {
+                            NotificationsData notificationPertamina = new NotificationsData(updateNotification_id1, handlerCustomerStock.getManagerId(), handlerCustomerStock.getId(), dailyPickup_id, notificationMessage, dateFormat.format(date), false);
+                            NotificationsData notificationCustomer = new NotificationsData(updateNotification_id2, handlerCustomerStock.getManagerId(), handlerCustomerStock.getId(), dailyPickup_id, notificationMessage, dateFormat.format(date), false);
+                            if (updateNotification_id1 != null) {
                                 // pertamina
-                                db.child("data_notifications").child(updateNotification_id).setValue(notificationPertamina).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                db.child("data_notifications").child(updateNotification_id1).setValue(notificationPertamina).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Log.d("SUCCESS", updateNotification_id);
+                                        Log.d("SUCCESS", updateNotification_id1);
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -214,7 +217,7 @@ public class InputData extends AppCompatActivity {
                                 });
 
                                 // customer
-                                db.child("data_notifications").child(updateNotification_id).setValue(notificationCustomer).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                db.child("data_notifications").child(updateNotification_id2).setValue(notificationCustomer).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Toast.makeText(getApplicationContext(), "Successful Daily Pickup!", Toast.LENGTH_SHORT).show();
@@ -228,11 +231,70 @@ public class InputData extends AppCompatActivity {
                             }
                         }
                     }
+
+                    // check if needed to request restock
+                    int currentAmount = handlerCustomerStock.getTank_rest() - amount;
+                    String address = String.format("%s, %s %s", handlerCustomerAddress.getCity(), handlerCustomerAddress.getProvince(), handlerCustomerAddress.getPostalCode());
+                    if (currentAmount < minimumTankRest) {
+                        // check if already requested for restock
+                        db.child("data_request").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot item : snapshot.getChildren()) {
+                                    StockRequest restock = item.getValue(StockRequest.class);
+                                    if (!restock.isStatus() && handlerCustomerStock.getId().equals(restock.getId_stock())) {
+                                        Toast.makeText(getApplicationContext(), "Stock reaching minimum amount", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Requesting restock...", Toast.LENGTH_LONG).show();
+
+                                        // create request restock
+                                        String request_id = db.child("data_request").push().getKey();
+                                        StockRequest request = new StockRequest(request_id, handler.getPertaminaId(), handler.getId(), handlerCustomerStock.getId(), dateFormat.format(date), address, handlerCustomerData.getName(), handlerCustomerData.getIcons(), handlerCustomerStock.getType(), false);
+
+                                        // create notification for pertamina
+                                        String notification_id = db.child("data_notification").push().getKey();
+                                        String notificationMessage = "Restock requested from " + handler.getName() + "for " + handlerCustomerStock.getType()  + " stock in " + handlerCustomerData.getName() + " with current amount of " + handlerCustomerStock.getTank_rest() + "kL.";
+                                        NotificationsData notification = new NotificationsData(notification_id, handlerCustomerStock.getManagerId(), handlerCustomerStock.getId(), "RequestStock", notificationMessage, dateFormat.format(date), false);
+
+                                        // send request to database
+                                        db.child("data_request").child(request_id).setValue(request).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Toast.makeText(getApplicationContext(), "Successfully requested restock!", Toast.LENGTH_SHORT).show();
+
+                                                // notify pertamina
+                                                db.child("data_notifications").child(notification_id).setValue(notification).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.d("SUCCESS", "Send notification");
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(getApplicationContext(), "Something is wrong...", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(getApplicationContext(), "Something is wrong...", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                        break;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.d("ERROR", "error while taking handlerCustomerAddress");
+                            }
+                        });
+                    }
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Please input your data", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
     }

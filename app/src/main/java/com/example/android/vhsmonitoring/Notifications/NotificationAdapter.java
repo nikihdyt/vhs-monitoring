@@ -30,17 +30,17 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public View lineEndData; final NotificationAdapter mAdapter;
-        TextView tvNotifType, tvTime, tvHeading, tvName, tvSelfDescriptions;
+        final NotificationAdapter mAdapter;
+        TextView tvNotifType, tvTime, tvHeading, tvSelfDescriptions, tv_dateNotifications;
         ImageView logoCustomer;
         public WordViewHolder(View itemView, NotificationAdapter adapter) {
             super(itemView);
             tvNotifType = itemView.findViewById(R.id.tv_notif_type);
             tvTime = itemView.findViewById(R.id.tv_time);
-            tvName = itemView.findViewById(R.id.tv_name);
             tvHeading = itemView.findViewById(R.id.tv_heading);
             logoCustomer = itemView.findViewById(R.id.logo_customer);
             tvSelfDescriptions = itemView.findViewById(R.id.tv_selfDescription);
+            tv_dateNotifications = itemView.findViewById(R.id.tv_dateNotifications);
 
             this.mAdapter = adapter;
             itemView.setOnClickListener(this);
@@ -72,11 +72,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         } else {
             holder.tvTime.setText(mCurrent.getDate());
         }
-        Log.d("testData", mCurrent.getDate());
 
-        holder.tvNotifType.setText("Approval");
+        holder.tvNotifType.setText(R.string.approval_default);
         holder.tvTime.setText(String.valueOf(mCurrent.getDate()));
         holder.tvSelfDescriptions.setText(mCurrent.getMessages());
+        holder.tv_dateNotifications.setText(mCurrent.getDate());
+        holder.tvHeading.setText(R.string.default_company_name);
+
     }
 
     @Override

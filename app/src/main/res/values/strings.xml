@@ -95,5 +95,12 @@
     <string name="claim">1000kL</string>
     <string name="approval_needed">Approval Needed</string>
     <string name="nothing_to_do">Nothing to do</string>
-    <string name="today">Today</string>
+    <string name="today">TODAY</string>
+    <string name="default_time">00:00</string>
+    <string name="customer_name">customer name</string>
+    <string name="default_date">dd/mm/yyyy</string>
+    <string name="descriptions_messages">descriptions messages</string>
+    <string name="default_value">default value</string>
+    <string name="approval_default">Approval</string>
+    <string name="default_company_name">PT. Shell Indonesia</string>
 </resources>

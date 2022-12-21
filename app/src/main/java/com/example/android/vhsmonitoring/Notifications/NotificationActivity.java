@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.android.vhsmonitoring.Admin.Model.ClaimContract;
 import com.example.android.vhsmonitoring.Admin.Model.CustomerAddress;
@@ -38,7 +40,7 @@ public class NotificationActivity extends AppCompatActivity {
     public String jSonData;
 
     public UserHandler handler;
-    public UserCustomer handlerCustomerData;
+    public List<NotificationsData> handlerNotofications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +50,13 @@ public class NotificationActivity extends AppCompatActivity {
         // get handler data from intent
         Intent data = getIntent();
         String userId = data.getStringExtra("user");
+        String data1 = data.getStringExtra("handler");
+        String data2 = data.getStringExtra("handlerCustomerData");
+
+        displayCustomerNotifications(userId);
 
         btnBack = findViewById(R.id.btn_back);
         backToBeranda();
-
-        Log.d("userid", userId);
-        displayCustomerNotifications(userId);
     }
 
     public void backToBeranda() {
@@ -66,6 +69,10 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     public void displayCustomerNotifications(String userid) {
+        // view for notification header
+        ImageView icNotification = findViewById(R.id.ic_notif);
+        TextView tvNotificationCount = findViewById(R.id.tv_notifications_count);
+
         db.child("data_notifications").orderByChild("date").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -73,7 +80,6 @@ public class NotificationActivity extends AppCompatActivity {
                     NotificationsData notifications = item.getValue(NotificationsData.class);
                     if (notifications.getId_user().equals(userid)) {
                         notificationsData.add(notifications);
-                        Log.d("id found data", notifications.getId());
                     }
                 }
 
@@ -85,6 +91,12 @@ public class NotificationActivity extends AppCompatActivity {
                     notificationRecycler.setAdapter(adapter);
                     notificationRecycler.setLayoutManager(new LinearLayoutManager(NotificationActivity.this));
                     notificationRecycler.setVisibility(View.VISIBLE);
+
+                    int itemCount = adapter.getItemCount();
+                    if (itemCount > 0) {
+                        icNotification.setBackgroundResource(R.drawable.ic_notifications);
+                        tvNotificationCount.setText(String.valueOf(itemCount));
+                    }
                 }
             }
 

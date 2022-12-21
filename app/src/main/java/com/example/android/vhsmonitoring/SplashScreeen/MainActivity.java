@@ -65,11 +65,10 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, Dashboard.class));
                     finish();
                 } else {
+                    // view login screen if user has no sessions
                     resetSessions();
+                    viewLoginScreen();
                 }
-
-                // view login screen if user has no sessions
-                viewLoginScreen();
             }
         }, 2000);
     }

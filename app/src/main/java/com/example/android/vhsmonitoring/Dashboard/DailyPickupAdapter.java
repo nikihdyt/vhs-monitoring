@@ -2,6 +2,8 @@ package com.example.android.vhsmonitoring.Dashboard;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +66,11 @@ public class DailyPickupAdapter extends RecyclerView.Adapter<DailyPickupAdapter.
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
 
+        int color = Color.parseColor("#859721");
+        int color1 = Color.parseColor("#F14B5C");
+        int approvedIcons = R.drawable.ic_finished;
+        int warningIcons = R.drawable.ic_warning;
+
         DailyPickupData mCurrent = dataDailyPickup.get(position);
         if (mCurrent.getDate_sent().equals(dateFormat.format(date))) {
             holder.stockDetailsDate.setText(R.string.today);
@@ -74,9 +81,11 @@ public class DailyPickupAdapter extends RecyclerView.Adapter<DailyPickupAdapter.
         holder.stockDetailsAmount.setText(String.format("%d kL", mCurrent.getAmount()));
         holder.stockStatus.setText(mCurrent.getStatus());
         if ("Approved".equals(mCurrent.getStatus())) {
-            holder.warningIcons.setBackgroundResource(R.drawable.ic_finished);
+            holder.warningIcons.setBackgroundResource(approvedIcons);
+            holder.stockStatus.setTextColor(ColorStateList.valueOf(color));
         } else {
-            holder.warningIcons.setBackgroundResource(R.drawable.ic_warning);
+            holder.warningIcons.setBackgroundResource(warningIcons);
+            holder.stockStatus.setTextColor(ColorStateList.valueOf(color1));
         }
     }
 

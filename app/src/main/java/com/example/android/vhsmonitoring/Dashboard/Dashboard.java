@@ -10,7 +10,7 @@ import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +34,7 @@ import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.RestockD
 import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.StockOpnameData;
 import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.StockRequest;
 import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.StockTransactions;
+import com.example.android.vhsmonitoring.Admin.Model.StockLosess;
 import com.example.android.vhsmonitoring.Admin.Model.Users.UserCustomer;
 import com.example.android.vhsmonitoring.Admin.Model.Users.UserData;
 import com.example.android.vhsmonitoring.Admin.Model.Users.UserHandler;
@@ -43,11 +44,11 @@ import com.example.android.vhsmonitoring.Dashboard.stockrequest.StockRequestMode
 import com.example.android.vhsmonitoring.Encryption;
 import com.example.android.vhsmonitoring.InputData.InputData;
 import com.example.android.vhsmonitoring.Notifications.NotificationActivity;
-import com.example.android.vhsmonitoring.Notifications.NotificationAdapter;
 import com.example.android.vhsmonitoring.R;
 import com.example.android.vhsmonitoring.InputData.StockOpname;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,11 +56,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
-import org.w3c.dom.Text;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -71,19 +71,26 @@ public class Dashboard extends AppCompatActivity {
     public SharedPreferences sessions;
     public Gson gsonData = new Gson();
     public String jSonData;
+    public int unreadNotifications = 0;
+    public int limitCount = 0;
 
+    // handler related data
     public UserHandler handler;
     public UserCustomer handlerCustomerData;
     public CustomerAddress handlerCustomerAddress;
     public StockData handlerCustomerStock;
     public ClaimContract claimContract;
+    public List<NotificationsData> handlerNotifications = new ArrayList<>();
 
+    // customer related data
     public UserCustomer customer;
     public CustomerAddress SelfCustomerAddress;
     public StockData selfStockData;
     public List<DailyPickupData> dataDailyPickup = new ArrayList<>();
     public String idCurrentApproval;
+    public List<NotificationsData> customerNotifications = new ArrayList<>();
 
+    // pertamina related data
     public UserData pertamina;
     public StockData pertaminaCustomerStockData;
     public StockData stockApprovalQueue;
@@ -96,6 +103,7 @@ public class Dashboard extends AppCompatActivity {
     public String approvalStockId;
     public List<StockData> pertaminaCustomers = new ArrayList<>();
     public List<StockRequest> stockRequestsData = new ArrayList<>();
+    public List<NotificationsData> pertaminaNotifications = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,6 +160,9 @@ public class Dashboard extends AppCompatActivity {
         // prepare encryption
         Encryption encode = new Encryption();
 
+        // check notifications
+        getHandlerNotifications();
+
         // get today date
         @SuppressLint("SimpleDateFormat")
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -164,7 +175,6 @@ public class Dashboard extends AppCompatActivity {
         tvUserId.setText(encode.decrypt(handler.getCode()));
         tvCalendar.setText(dateFormat.format(date));
         tvTankRest.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.primary_700));
-        tvTankRestTimeRemaining.setVisibility(View.VISIBLE);
         inputCard.setVisibility(View.GONE);
         btnTankRest.setVisibility(View.VISIBLE);
 
@@ -200,7 +210,11 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Dashboard.this, NotificationActivity.class);
-                intent.putExtra("user", handler.getId());
+                String json_handler = gsonData.toJson(handler);
+                String json_handlerNotifications = gsonData.toJson(handlerNotifications);
+                intent.putExtra("userId", handler.getId());
+                intent.putExtra("handler", json_handler);
+                intent.putExtra("handlerNotifications", json_handlerNotifications);
                 startActivity(intent);
             }
         });
@@ -272,49 +286,60 @@ public class Dashboard extends AppCompatActivity {
         TextView tvDailyPickupAmount = findViewById(R.id.tv_DAILY_PICKUP_amount);
         TextView tvDailyPickupTime = findViewById(R.id.tv_DAILY_PICKUP_time);
 
-        // fill daily pickup choice
-        db.child("data_stock/" + handlerCustomerData.getStockId() + "/stock_distributions").orderByChild("date_sent").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot item : snapshot.getChildren()) {
-                    StockTransactions stockDistribution = item.getValue(StockTransactions.class);
-                    if ("Daily Pickup".equals(stockDistribution.getType()) && !"Approved".equals(stockDistribution.getStatus())) {
-                        DailyPickupData dataStock = item.getValue(DailyPickupData.class);
-                        assert dataStock != null;
-                        tvDailyPickupAmount.setText(String.format("%skL", String.valueOf(dataStock.getAmount())));
-                        tvDailyPickupTime.setText(String.format("Requested on%s", dataStock.getDate_sent()));
-                        tvDailyPickupTime.setTextColor(getResources().getColor(R.color.tertiary_200));
-                        break;
-                    } else if ("Daily Pickup".equals(stockDistribution.getType()) && "Approved".equals(stockDistribution.getStatus())) {
-                        DailyPickupData dataStock = item.getValue(DailyPickupData.class);
-                        assert dataStock != null;
-                        tvDailyPickupAmount.setText(String.format("%skL", String.valueOf(dataStock.getAmount())));
-                        tvDailyPickupTime.setText(String.format("Approved on%s", dataStock.getDate_approved()));
-                        tvDailyPickupTime.setTextColor(getResources().getColor(R.color.secondary_500));
-                    }
-                }
+        // daily pickup choices data
+        for (int i = 0; i < stockHistories.size(); i++) {
+            if ("Daily Pickup".equals(stockHistories.get(i).getType()) && !"Approved".equals(stockHistories.get(i).getStatus())) {
+                tvDailyPickupAmount.setText(String.format("%skL", String.valueOf(stockHistories.get(i).getAmount())));
+                tvDailyPickupTime.setText(String.format("Requested on %s", stockHistories.get(i).getDate_sent()));
+                tvDailyPickupTime.setTextColor(getResources().getColor(R.color.tertiary_200));
+                break;
+            } else {
+                tvDailyPickupAmount.setText(String.format("%skL", String.valueOf(stockHistories.get(i).getAmount())));
+                tvDailyPickupAmount.setText(stockHistories.get(i).getStatus());
+                tvDailyPickupTime.setText(String.format("Requested on %s", String.valueOf(stockHistories.get(i).getDate_sent())));
             }
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("ERROR", "error while taking handlerCustomerStockData");
-            }
-        });
+        // arrived stock shoices data
+
+
+        // fill daily pickup choice
+//        db.child("data_stock/" + handlerCustomerData.getStockId() + "/stock_distributions").orderByChild("date_sent").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot item : snapshot.getChildren()) {
+//                    StockTransactions stockDistribution = item.getValue(StockTransactions.class);
+//                    if ("Daily Pickup".equals(stockDistribution.getType()) && !"Approved".equals(stockDistribution.getStatus())) {
+//                        DailyPickupData dataStock = item.getValue(DailyPickupData.class);
+//                        assert dataStock != null;
+//                        tvDailyPickupAmount.setText(String.format("%skL", String.valueOf(dataStock.getAmount())));
+//                        tvDailyPickupTime.setText(String.format("Requested on%s", dataStock.getDate_sent()));
+//                        tvDailyPickupTime.setTextColor(getResources().getColor(R.color.tertiary_200));
+//                        break;
+//                    } else if ("Daily Pickup".equals(stockDistribution.getType()) && "Approved".equals(stockDistribution.getStatus())) {
+//                        DailyPickupData dataStock = item.getValue(DailyPickupData.class);
+//                        assert dataStock != null;
+//                        tvDailyPickupAmount.setText(String.format("%skL", String.valueOf(dataStock.getAmount())));
+//                        tvDailyPickupTime.setText(String.format("Approved on%s", dataStock.getDate_approved()));
+//                        tvDailyPickupTime.setTextColor(getResources().getColor(R.color.secondary_500));
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.d("ERROR", "error while taking handlerCustomerStockData");
+//            }
+//        });
 
         // fill arrived stock choices
-
     }
     public void displayHistories() {
         TextView tvInputTitle = findViewById(R.id.tv_input_title);
         TextView tvOverviewStatusTime = findViewById(R.id.tv_overview_status_time);
         TextView tvStatus = findViewById(R.id.tv_status);
 
-        // clear data in stockHistories to prevent duplicate
-        if (stockHistories.size() >= 1) {
-            stockHistories.clear();
-        }
-
-        // get all unfinished stock distribution
+        // get all unfinished stock distribution and display the latest one on customer card
         db.child("data_stock/" + handlerCustomerData.getStockId() + "/stock_distributions").orderByChild("date_sent").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -329,10 +354,9 @@ public class Dashboard extends AppCompatActivity {
                             tvOverviewStatusTime.setText(String.format("Requested on %s", dataStock.getDate_sent()));
                             tvStatus.setText(R.string.approval_needed);
                             tvStatus.setTextColor(getResources().getColor(R.color.tertiary_200));
-                        } else {
-                            tvStatus.setText(R.string.nothing_to_do);
+                            break;
                         }
-                        break;
+
                     } else if ("InputData".equals(stockDistribution.getType())) {
                         DailyPickupData dataStock = item.getValue(DailyPickupData.class);
                         assert dataStock != null;
@@ -342,10 +366,9 @@ public class Dashboard extends AppCompatActivity {
                             tvOverviewStatusTime.setText(String.format("Requested on %s", dataStock.getDate_sent()));
                             tvStatus.setText(R.string.approval_needed);
                             tvStatus.setTextColor(getResources().getColor(R.color.tertiary_200));
-                        } else {
-                            tvStatus.setText(R.string.nothing_to_do);
+                            break;
                         }
-                        break;
+
                     } else if ("Restock".equals(stockDistribution.getType())) {
                         RestockData dataStock = item.getValue(RestockData.class);
                         assert dataStock != null;
@@ -355,10 +378,8 @@ public class Dashboard extends AppCompatActivity {
                             tvOverviewStatusTime.setText(String.format("Requested on %s", dataStock.getDate_sent()));
                             tvStatus.setText(R.string.approval_needed);
                             tvStatus.setTextColor(getResources().getColor(R.color.tertiary_200));
-                        } else {
-                            tvStatus.setText(R.string.nothing_to_do);
+                            break;
                         }
-                        break;
                     }
                 }
             }
@@ -373,24 +394,12 @@ public class Dashboard extends AppCompatActivity {
         db.child("data_stock/" + handlerCustomerData.getStockId() + "/stock_distributions").orderByChild("date_sent").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // clear data in stockHistories to prevent duplicate
+                stockHistories.clear();
+
                 for (DataSnapshot item : snapshot.getChildren()) {
                     // save to StockTransactions object
                     StockTransactions transactionsHistory = item.getValue(StockTransactions.class);
-                    Log.d("dataStatus", transactionsHistory.getId());
-                    // seperate the data based on their type and update the status
-                    if ("StockOpname".equals(transactionsHistory.getType())) {
-                        StockOpnameData stockHistory = snapshot.getValue(StockOpnameData.class);
-                        stockHistory.checkStatus();
-                        transactionsHistory.setStatus(stockHistory.getStatus());
-                    } else if ("InputData".equals(transactionsHistory.getType())) {
-                        DailyPickupData stockHistory = snapshot.getValue(DailyPickupData.class);
-                        stockHistory.checkStatus();
-                        transactionsHistory.setStatus(stockHistory.getStatus());
-                    } else if ("Restock".equals(transactionsHistory.getType())) {
-                        RestockData stockHistory = snapshot.getValue(RestockData.class);
-                        stockHistory.checkStatus();
-                        transactionsHistory.setStatus(stockHistory.getStatus());
-                    }
 
                     // fill dropdown choices data
                     fillChoicesData();
@@ -402,6 +411,7 @@ public class Dashboard extends AppCompatActivity {
                 // check array of data
                 Log.d("length", String.valueOf(stockHistories.size()));
                 if (stockHistories.size() > 0) {
+                    Collections.reverse(stockHistories);
                     RecyclerView historyRecycler = findViewById(R.id.historyRecycler);
                     HistoryAdapter adapter = new HistoryAdapter(Dashboard.this, stockHistories);
                     historyRecycler.setAdapter(adapter);
@@ -510,6 +520,35 @@ public class Dashboard extends AppCompatActivity {
             }
         });
     }
+    public void getHandlerNotifications() {
+        ImageButton btnNotification = findViewById(R.id.btnNotification);
+        // get notification data
+        db.child("data_notifications").orderByChild("date").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    NotificationsData notifications = item.getValue(NotificationsData.class);
+                    if (handler.getId().equals(notifications.getId_user())) {
+                        handlerNotifications.add(notifications);
+                        if (!notifications.isReadStatus()) {
+                            unreadNotifications += 1;
+                            btnNotification.setBackgroundResource(R.drawable.ic_notification_true);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("ERROR", "error while taking handlerCustomerStockData");
+            }
+        });
+
+        // check if some data are read or not
+        if (unreadNotifications > 0) {
+            btnNotification.setBackgroundResource(R.drawable.ic_notification_false);
+        }
+    }
 
     // customer dashboard
     public void viewCustomerDashboard() {
@@ -533,32 +572,100 @@ public class Dashboard extends AppCompatActivity {
         // control views visibilities
         btnInput.setVisibility(View.GONE);
         btnApproval.setVisibility(View.VISIBLE);
-        tvHistoryHandler.setVisibility(View.GONE);
-        tvHistoryCustomer.setVisibility(View.VISIBLE);
+        tvHistoryHandler.setText("Daily Pickup History");
         icFilterHandler.setVisibility(View.GONE);
         groupHistoryFilterHandler.setVisibility(View.GONE);
+
+        TextView tvHistory = findViewById(R.id.tv_history);
+        HorizontalScrollView hsvScrollFilterButton = findViewById(R.id.scrollFilterButton);
 
         // add button listener
         btnApproval.bringToFront();
         btnApproval.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Approve daily pickup
-                DatabaseReference referenceData = FirebaseDatabase.getInstance().getReference();
-                Map<String, Object> updateApproval = new HashMap<>();
-                updateApproval.put("approval_customer", true);
-                referenceData.child("data_stock").child(selfStockData.getId()).child("stock_distributions").child(idCurrentApproval).updateChildren(updateApproval);
+                // check if data approval has been approved by customer
+                db.child("data_stock").child(selfStockData.getId()).child("stock_distributions").child(idCurrentApproval).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot item : snapshot.getChildren()) {
+                            StockTransactions dataStock = snapshot.getValue(StockTransactions.class);
+                            if ("Daily Pickup".equals(dataStock.getType())) {
+                                DailyPickupData data = snapshot.getValue(DailyPickupData.class);
+                                // check customer approval status
+                                data.checkStatus();
+                                if (data.isApproval_customer()) {
+                                    Toast.makeText(getApplicationContext(), "Please wait for pertamina approval", Toast.LENGTH_SHORT).show();
+                                    break;
+                                } else {
+                                    // get today date
+                                    @SuppressLint("SimpleDateFormat")
+                                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                    Date date = new Date();
 
-                // report data to users
-                Intent intent = new Intent(Dashboard.this, Approval.class);
-                String json_customer = gsonData.toJson(customer);
-                String json_SelfCustomerAddress = gsonData.toJson(SelfCustomerAddress);
-                String json_selfStockData = gsonData.toJson(selfStockData);
-                intent.putExtra("customer", json_customer);
-                intent.putExtra("SelfCustomerAddress", json_SelfCustomerAddress);
-                intent.putExtra("selfStockData", json_selfStockData);
-                intent.putExtra("approvalType", "DAILY PICKUP");
-                startActivity(intent);
+                                    // Approve daily pickup
+                                    DatabaseReference referenceData = FirebaseDatabase.getInstance().getReference();
+                                    Map<String, Object> updateApproval = new HashMap<>();
+                                    updateApproval.put("approval_customer", true);
+                                    referenceData.child("data_stock").child(selfStockData.getId()).child("stock_distributions").child(idCurrentApproval).updateChildren(updateApproval);
+
+                                    // report data to users
+                                    Intent intent = new Intent(Dashboard.this, Approval.class);
+                                    String json_customer = gsonData.toJson(customer);
+                                    String json_SelfCustomerAddress = gsonData.toJson(SelfCustomerAddress);
+                                    String json_selfStockData = gsonData.toJson(selfStockData);
+                                    intent.putExtra("customer", json_customer);
+                                    intent.putExtra("SelfCustomerAddress", json_SelfCustomerAddress);
+                                    intent.putExtra("selfStockData", json_selfStockData);
+                                    intent.putExtra("approvalType", "DAILY PICKUP");
+                                    startActivity(intent);
+
+                                    String notification_id1 = db.child("data_notification").push().getKey();
+                                    String notification_id2 = db.child("data_notification").push().getKey();
+                                    String notificationMessage = customer.getName() + " Has approved daily pickup in " + data.getDate_sent() + " with daily pickup amount as much as " + String.valueOf(data.getAmount());
+                                    NotificationsData notification1 = new NotificationsData(notification_id1, customer.getHandlerId(), selfStockData.getId(), idCurrentApproval, notificationMessage, dateFormat.format(date), false);
+                                    NotificationsData notification2 = new NotificationsData(notification_id2, customer.getPertaminaId(), selfStockData.getId(), idCurrentApproval, notificationMessage, dateFormat.format(date), false);
+
+
+                                    // send notifications
+                                    assert notification_id1 != null;
+                                    db.child("data_stock/" + selfStockData.getId() + "/stock_distributions").child(notification_id1).setValue(notification1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d("SUCCESS", "Notification is sent!");
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("ERROR", "Error adding data!");
+                                        }
+                                    });
+
+                                    assert notification_id2 != null;
+                                    db.child("data_stock/" + selfStockData.getId() + "/stock_distributions").child(notification_id2).setValue(notification2).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d("SUCCESS", "Notification is sent!");
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("ERROR", "Error adding data!");
+                                        }
+                                    });
+
+                                    // call method again to refresh data stock
+                                    displayDailyPickupHistories();
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.d("ERROR", "error while taking handlerCustomerStockData");
+                    }
+                });
             }
         });
 
@@ -573,6 +680,9 @@ public class Dashboard extends AppCompatActivity {
 
         // get user data
         fillCustomerSelfOverviewCard();
+
+        // get notifications data
+        getCustomerNotifications();
     }
     public void fillCustomerSelfOverviewCard() {
         // views for user data
@@ -661,15 +771,13 @@ public class Dashboard extends AppCompatActivity {
         TextView tvOverviewStatusTime = findViewById(R.id.tv_overview_status_time);
         TextView tvStatus = findViewById(R.id.tv_status);
 
-        // clear data in Daily Stock to prevent duplicate
-        if (dataDailyPickup.size() >= 1) {
-            dataDailyPickup.clear();
-        }
-
         // get all daily stock data
         db.child("data_stock").child(selfStockData.getId()).child("stock_distributions").orderByChild("date_sent").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // clear data in Daily Stock to prevent duplicate
+                dataDailyPickup.clear();
+
                 for (DataSnapshot item : snapshot.getChildren()) {
                     StockTransactions dataStock = item.getValue(StockTransactions.class);
                     if ("Daily Pickup".equals(dataStock.getType())) {
@@ -682,28 +790,36 @@ public class Dashboard extends AppCompatActivity {
                         updateStatus.put("status", data.getStatus());
                         referenceData.child("data_stock").child(selfStockData.getId()).child("stock_distributions").child(data.getId()).updateChildren(updateStatus);
 
-                        tvInputTitle.setText(data.getStatus());
-                        if (!"Approved".equals(data.getStatus()) && !data.isApproval_customer()) {
-                            tvOverviewStatusTime.setText(String.format("Requested on %s", dataStock.getDate_sent()));
-                            tvStatus.setText(R.string.approval_needed);
-                            tvStatus.setTextColor(getResources().getColor(R.color.tertiary_200));
-                            idCurrentApproval = data.getId();
-                        } else if (!"Approved".equals(data.getStatus()) && !data.isApproval_pertamina()) {
-                            tvOverviewStatusTime.setText(String.format("Requested on %s", dataStock.getDate_sent()));
-                            tvStatus.setText(data.getStatus());
-                            tvStatus.setTextColor(getResources().getColor(R.color.tertiary_200));
-                        } else if ("Approved".equals(data.getStatus())) {
-                            tvOverviewStatusTime.setText(String.format("Approved on %s", dataStock.getDate_approved()));
-                            tvStatus.setTextColor(getResources().getColor(R.color.secondary_500));
-                            tvStatus.setText(R.string.nothing_to_do);
-                        }
+                        // add data to array
                         dataDailyPickup.add(data);
                     }
                 }
 
-                // check array of data
-                Log.d("length", String.valueOf(stockHistories.size()));
+                // set stock daily pickup data that are ready to be approved
+                for (int i = 0; i < dataDailyPickup.size(); i++) {
+                    if (!"Approved".equals(dataDailyPickup.get(i).getStatus())) {
+                        tvOverviewStatusTime.setText(String.format("Requested on %s", dataDailyPickup.get(i).getDate_sent()));
+                        tvInputTitle.setText(dataDailyPickup.get(i).getStatus());
+                        tvStatus.setText(dataDailyPickup.get(i).getStatus());
+                        idCurrentApproval = dataDailyPickup.get(i).getId();
+                        break;
+                    }
+                }
+
+                // check dataDailyPickup size
                 if (dataDailyPickup.size() > 0) {
+                    // reverse collections
+                    Collections.reverse(dataDailyPickup);
+
+                    // set default data if all daily stock data is approved
+                    if ("default value".equals(tvStatus.getText().toString())) {
+                        tvOverviewStatusTime.setText(String.format("Requested on %s", dataDailyPickup.get(0).getDate_sent()));
+                        tvInputTitle.setText(dataDailyPickup.get(0).getStatus());
+                        tvStatus.setText(dataDailyPickup.get(0).getStatus());
+                        idCurrentApproval = dataDailyPickup.get(0).getId();
+                    }
+
+                    // set recyclerView
                     RecyclerView DailyPickupHistories = findViewById(R.id.historyRecycler);
                     DailyPickupAdapter adapter = new DailyPickupAdapter(Dashboard.this, dataDailyPickup);
                     DailyPickupHistories.setAdapter(adapter);
@@ -717,6 +833,36 @@ public class Dashboard extends AppCompatActivity {
                 Log.d("ERROR", "error while taking handlerCustomerStockData");
             }
         });
+    }
+    public void getCustomerNotifications() {
+        ImageButton btnNotification = findViewById(R.id.btnNotification);
+        // get notification data
+        db.child("data_notifications").orderByChild("date").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    NotificationsData notifications = item.getValue(NotificationsData.class);
+                    if (customer.getId().equals(notifications.getId_user())) {
+                        customerNotifications.add(notifications);
+                        if (!notifications.isReadStatus()) {
+                            unreadNotifications += 1;
+                            btnNotification.setBackgroundResource(R.drawable.ic_notification_true);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("ERROR", "error while taking handlerCustomerStockData");
+            }
+        });
+
+        // check if some data are read or not
+        if (unreadNotifications <= 0) {
+            btnNotification.setBackgroundResource(R.drawable.ic_notification_false);
+            unreadNotifications = 0;
+        }
     }
 
     // pertamina dashboard
@@ -907,6 +1053,7 @@ public class Dashboard extends AppCompatActivity {
         db.child("data_stock").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                approvalNeededAmount = 0; activeTransaction = 0; stockRequest = 0;
                 for (DataSnapshot item : snapshot.getChildren()) {
                     pertaminaCustomerStockData = item.getValue(StockData.class);
                     assert pertaminaCustomerStockData != null;
@@ -1042,6 +1189,9 @@ public class Dashboard extends AppCompatActivity {
         vpStockRequest.setVisibility(View.GONE);
 
         stockRequestStack();
+
+        // get pertamina notifications
+        getPertaminaNotifications();
     }
     private void stockRequestStack() {
         ViewPager mStockRequestsViewPager = findViewById(R.id.vp_stock_request);
@@ -1072,6 +1222,36 @@ public class Dashboard extends AppCompatActivity {
         mStockRequestsViewPager.setPageTransformer(true, new StockRequestViewPagerStack());
         mStockRequestsViewPager.setOffscreenPageLimit(2);
         mStockRequestsViewPager.setAdapter(mStockRequestAdapter);
+    }
+    public void getPertaminaNotifications() {
+        ImageButton btnNotification = findViewById(R.id.btnNotification);
+        // get notification data
+        db.child("data_notifications").orderByChild("date").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    NotificationsData notifications = item.getValue(NotificationsData.class);
+                    if (pertamina.getId().equals(notifications.getId_user())) {
+                        pertaminaNotifications.add(notifications);
+                        if (!notifications.isReadStatus()) {
+                            unreadNotifications += 1;
+                            btnNotification.setBackgroundResource(R.drawable.ic_notification_true);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("ERROR", "error while taking handlerCustomerStockData");
+            }
+        });
+
+        // check if some data are read or not
+        if (unreadNotifications <= 0) {
+            btnNotification.setBackgroundResource(R.drawable.ic_notification_false);
+            unreadNotifications = 0;
+        }
     }
     private class StockRequestViewPagerStack implements ViewPager.PageTransformer {
         @Override

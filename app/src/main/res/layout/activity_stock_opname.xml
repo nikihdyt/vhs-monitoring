@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="21.74dp"
     android:paddingHorizontal="24dp"
-    tools:context=".InputData.Restock"
+    tools:context=".InputData.StockOpname"
     android:id="@+id/card_stock_opname">
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -231,6 +231,7 @@
                     android:layout_width="146dp"
                     android:layout_height="37dp"
                     android:layout_marginTop="11dp"
+                    android:paddingStart="5dp"
                     android:ems="10"
                     android:inputType="numberDecimal"
                     android:background="@color/primary_200"

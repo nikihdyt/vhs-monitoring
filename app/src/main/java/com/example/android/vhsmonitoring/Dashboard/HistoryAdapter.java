@@ -2,12 +2,16 @@ package com.example.android.vhsmonitoring.Dashboard;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.vhsmonitoring.Admin.Model.StockDistributions.StockTransactions;
@@ -28,15 +32,17 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.WordView
     }
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public View lineEndData; final HistoryAdapter mAdapter;
-        TextView stockDetailsDate, stockDetailsAmount, stockStatus, stockOpnameType;
-        ImageView warningIcons;
+        private final HistoryAdapter mAdapter;
+        private final View line;
+        private final TextView stockDetailsDate, stockDetailsAmount, stockStatus;
+        private final ImageView warningIcons;
         public WordViewHolder(View itemView, HistoryAdapter adapter) {
             super(itemView);
             stockDetailsDate = itemView.findViewById(R.id.dateStockOpname);
             stockDetailsAmount = itemView.findViewById(R.id.amountStockOpname);
             stockStatus = itemView.findViewById(R.id.stockOpnameDescription);
             warningIcons = itemView.findViewById(R.id.warningIcons);
+            line = itemView.findViewById(R.id.lineSeperator);
 
             this.mAdapter = adapter;
             itemView.setOnClickListener(this);
@@ -62,6 +68,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.WordView
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
 
+        int color = Color.parseColor("#859721");
+        int color1 = Color.parseColor("#F14B5C");
+        int approvedIcons = R.drawable.ic_finished;
+        int warningIcons = R.drawable.ic_warning;
+
         StockTransactions mCurrent = historyData.get(position);
         if (mCurrent.getDate_sent().equals(dateFormat.format(date))) {
             holder.stockDetailsDate.setText(R.string.today);
@@ -72,11 +83,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.WordView
         holder.stockDetailsAmount.setText(String.format("%d kL", mCurrent.getAmount()));
         holder.stockStatus.setText(mCurrent.getStatus());
         if ("Approved".equals(mCurrent.getStatus())) {
-            holder.warningIcons.setBackgroundResource(R.drawable.ic_finished);
+            holder.warningIcons.setBackgroundResource(approvedIcons);
+            holder.stockStatus.setTextColor(ColorStateList.valueOf(color));
         } else {
-            holder.warningIcons.setBackgroundResource(R.drawable.ic_warning);
+            holder.warningIcons.setBackgroundResource(warningIcons);
+            holder.stockStatus.setTextColor(ColorStateList.valueOf(color1));
         }
-
     }
 
     @Override

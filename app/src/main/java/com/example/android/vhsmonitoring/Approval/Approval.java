@@ -93,8 +93,6 @@ public class Approval extends AppCompatActivity {
 
         setPopUpWindow(approvalType);
         closePopUp();
-
-
     }
 
     public void closePopUp() {
