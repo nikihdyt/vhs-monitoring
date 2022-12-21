@@ -112,7 +112,7 @@
             android:layout_marginLeft="7dp"
             app:layout_constraintTop_toTopOf="@id/ic_status"
             app:layout_constraintBottom_toBottomOf="@id/ic_status"
-            android:text="@string/default_value"/>
+            android:text="Approved"/>
 
         <!-- overview and input card start -->
         <androidx.cardview.widget.CardView

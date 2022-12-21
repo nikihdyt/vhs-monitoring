@@ -129,11 +129,11 @@ public class InputData extends AppCompatActivity {
 
                     // Separate based on inputType
                     if ("ARRIVED STOCK".equals(inputType)) {
-                        String arrivedStock_id = db.child("data_stock").child(handlerCustomerStock.getId()).child("stock_distributions").push().getKey();
+                        String arrivedStock_id = db.child("data_restock").child(handlerCustomerStock.getId()).child("stock_distributions").push().getKey();
                         String CustomerAddress = String.format("%s, %s %s", handlerCustomerAddress.getCity(), handlerCustomerAddress.getProvince(), handlerCustomerAddress.getPostalCode());
                         RestockData restock = new RestockData(arrivedStock_id, handlerCustomerData.getHandlerId(), handlerCustomerData.getPertaminaId(), handlerCustomerData.getId(), CustomerAddress, "", dateFormat.format(date), "Need Approval (pertamina)", 100, amount, true, false);
                         if (arrivedStock_id != null) {
-                            db.child("data_stock").child(handlerCustomerStock.getId()).child("stock_distributions").child(arrivedStock_id).setValue(restock).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            db.child("data_restock").child(handlerCustomerStock.getId()).child("stock_distributions").child(arrivedStock_id).setValue(restock).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Log.d("SUCCESS", arrivedStock_id);

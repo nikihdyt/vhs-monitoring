@@ -594,7 +594,10 @@ public class Dashboard extends AppCompatActivity {
                                 DailyPickupData data = snapshot.getValue(DailyPickupData.class);
                                 // check customer approval status
                                 data.checkStatus();
-                                if (data.isApproval_customer()) {
+                                if (data.isApproval_customer() && data.isApproval_pertamina() && data.isApproval_customer()) {
+                                    Toast.makeText(getApplicationContext(), "Data has been approved", Toast.LENGTH_SHORT).show();
+                                    break;
+                                } else if (data.isApproval_handler() && data.isApproval_customer() && !data.isApproval_pertamina()) {
                                     Toast.makeText(getApplicationContext(), "Please wait for pertamina approval", Toast.LENGTH_SHORT).show();
                                     break;
                                 } else {
@@ -609,27 +612,16 @@ public class Dashboard extends AppCompatActivity {
                                     updateApproval.put("approval_customer", true);
                                     referenceData.child("data_stock").child(selfStockData.getId()).child("stock_distributions").child(idCurrentApproval).updateChildren(updateApproval);
 
-                                    // report data to users
-                                    Intent intent = new Intent(Dashboard.this, Approval.class);
-                                    String json_customer = gsonData.toJson(customer);
-                                    String json_SelfCustomerAddress = gsonData.toJson(SelfCustomerAddress);
-                                    String json_selfStockData = gsonData.toJson(selfStockData);
-                                    intent.putExtra("customer", json_customer);
-                                    intent.putExtra("SelfCustomerAddress", json_SelfCustomerAddress);
-                                    intent.putExtra("selfStockData", json_selfStockData);
-                                    intent.putExtra("approvalType", "DAILY PICKUP");
-                                    startActivity(intent);
-
+                                    // send notifications
                                     String notification_id1 = db.child("data_notification").push().getKey();
                                     String notification_id2 = db.child("data_notification").push().getKey();
                                     String notificationMessage = customer.getName() + " Has approved daily pickup in " + data.getDate_sent() + " with daily pickup amount as much as " + String.valueOf(data.getAmount());
                                     NotificationsData notification1 = new NotificationsData(notification_id1, customer.getHandlerId(), selfStockData.getId(), idCurrentApproval, notificationMessage, dateFormat.format(date), false);
                                     NotificationsData notification2 = new NotificationsData(notification_id2, customer.getPertaminaId(), selfStockData.getId(), idCurrentApproval, notificationMessage, dateFormat.format(date), false);
 
-
                                     // send notifications
                                     assert notification_id1 != null;
-                                    db.child("data_stock/" + selfStockData.getId() + "/stock_distributions").child(notification_id1).setValue(notification1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    db.child("data_notifications").child(notification_id1).setValue(notification1).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
                                             Log.d("SUCCESS", "Notification is sent!");
@@ -642,7 +634,7 @@ public class Dashboard extends AppCompatActivity {
                                     });
 
                                     assert notification_id2 != null;
-                                    db.child("data_stock/" + selfStockData.getId() + "/stock_distributions").child(notification_id2).setValue(notification2).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    db.child("data_notifications").child(notification_id2).setValue(notification2).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
                                             Log.d("SUCCESS", "Notification is sent!");
@@ -653,6 +645,17 @@ public class Dashboard extends AppCompatActivity {
                                             Log.d("ERROR", "Error adding data!");
                                         }
                                     });
+
+                                    // report data to users
+                                    Intent intent = new Intent(Dashboard.this, Approval.class);
+                                    String json_customer = gsonData.toJson(customer);
+                                    String json_SelfCustomerAddress = gsonData.toJson(SelfCustomerAddress);
+                                    String json_selfStockData = gsonData.toJson(selfStockData);
+                                    intent.putExtra("customer", json_customer);
+                                    intent.putExtra("SelfCustomerAddress", json_SelfCustomerAddress);
+                                    intent.putExtra("selfStockData", json_selfStockData);
+                                    intent.putExtra("approvalType", "DAILY PICKUP");
+                                    startActivity(intent);
 
                                     // call method again to refresh data stock
                                     displayDailyPickupHistories();
